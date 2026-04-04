@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Game.Core
+namespace Game.CameraView
 {
     public class CameraMovement : MonoBehaviour
     {

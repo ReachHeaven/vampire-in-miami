@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
-namespace Game.Core
+namespace Game.Player
 {
     public class PlayerMovement : MonoBehaviour
     {

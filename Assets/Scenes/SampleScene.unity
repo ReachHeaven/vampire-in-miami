@@ -269,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fe58214611e4dec86fbc5602b5245c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Core.CameraMovement
-  target: {fileID: 0}
+  target: {fileID: 743860051}
   speed: 5
 --- !u!1 &619394800
 GameObject:
@@ -368,6 +368,7 @@ GameObject:
   - component: {fileID: 743860054}
   - component: {fileID: 743860053}
   - component: {fileID: 743860052}
+  - component: {fileID: 743860055}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -535,6 +536,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &743860055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743860049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 299e29150bf848cd8e0ffbc1358d00be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Core.PlayerAttack
+  cooldown: 2
+  bulletPrefab: {fileID: -2824203882230133950, guid: ee69e6cac4f8ea6499c54f1df5ad69fe, type: 3}
 --- !u!1 &1819848740
 GameObject:
   m_ObjectHideFlags: 0
