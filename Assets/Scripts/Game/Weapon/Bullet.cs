@@ -26,6 +26,7 @@ namespace Game.Weapon
             {
                 health.TakeDamage(bulletDamage);
             }
+            Destroy(gameObject);
         }
 
         public void Init(Vector2 direction)

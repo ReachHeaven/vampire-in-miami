@@ -9,8 +9,10 @@ namespace Game.CameraView
 
         private void LateUpdate()
         {
+            if (!target) return;
+
             var position = new Vector3(target.position.x, target.position.y, transform.position.z);
-            
+
             transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * speed);
         }
     }
