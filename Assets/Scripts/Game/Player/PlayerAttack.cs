@@ -40,7 +40,7 @@ namespace Game.Player
         {
             Vector2 shooterPos = transform.position;
             Vector2 targetPos = FindNearestEnemyPosition(shooterPos) ?? GetMouseWorldPosition();
-            Vector2 direction = _model.GetShootDirection(shooterPos, targetPos);
+            Vector2 direction = (targetPos - shooterPos).normalized;
 
             Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             bullet.Init(direction);

@@ -28,14 +28,30 @@ namespace Game.Enemy
 
         private void SpawnEnemy()
         {
-            Vector2 spawnPoint = _model.GetSpawnPoint(
-                _camera.transform.position,
-                _camera.orthographicSize,
-                _camera.aspect,
-                spawnPadding);
-
+            Vector2 spawnPoint = GetSpawnPoint();
             EnemyMovement instance = Instantiate(enemy, spawnPoint, Quaternion.identity);
             instance.Init(playerTransform);
+        }
+
+        private Vector2 GetSpawnPoint()
+        {
+            var halfHeight = _camera.orthographicSize + spawnPadding;
+            var halfWidth = halfHeight * _camera.aspect;
+
+            Vector2 cameraPos = _camera.transform.position;
+            int randomSide = Random.Range(0, 4);
+
+            return randomSide switch
+            {
+                0 => new Vector2(Random.Range(cameraPos.x - halfWidth, cameraPos.x + halfWidth),
+                    cameraPos.y + halfHeight),
+                1 => new Vector2(Random.Range(cameraPos.x - halfWidth, cameraPos.x + halfWidth),
+                    cameraPos.y - halfHeight),
+                2 => new Vector2(cameraPos.x - halfWidth,
+                    Random.Range(cameraPos.y - halfHeight, cameraPos.y + halfHeight)),
+                _ => new Vector2(cameraPos.x + halfWidth,
+                    Random.Range(cameraPos.y - halfHeight, cameraPos.y + halfHeight))
+            };
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Game.Weapon
         [SerializeField] private int bulletDamage = 30;
 
         private BulletModel _model;
+        private Vector2 _direction;
         private Rigidbody2D _rb;
 
         private void Awake()
@@ -19,7 +20,7 @@ namespace Game.Weapon
 
         private void FixedUpdate()
         {
-            _rb.MovePosition(_rb.position + _model.Direction * (_model.Speed * Time.fixedDeltaTime));
+            _rb.MovePosition(_rb.position + _direction * (_model.Speed * Time.fixedDeltaTime));
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -33,7 +34,7 @@ namespace Game.Weapon
 
         public void Init(Vector2 direction)
         {
-            _model.Init(direction);
+            _direction = direction;
             Destroy(gameObject, 5f);
         }
     }

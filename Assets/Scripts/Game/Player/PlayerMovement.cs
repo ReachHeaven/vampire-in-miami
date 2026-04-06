@@ -21,6 +21,11 @@ namespace Game.Player
 
         private void Update()
         {
+            Movement();
+        }
+
+        private void Movement()
+        {
             Keyboard keyboard = Keyboard.current;
 
             bool up = keyboard.upArrowKey.isPressed || keyboard.wKey.isPressed;
@@ -28,7 +33,12 @@ namespace Game.Player
             bool left = keyboard.leftArrowKey.isPressed || keyboard.aKey.isPressed;
             bool right = keyboard.rightArrowKey.isPressed || keyboard.dKey.isPressed;
 
-            _direction = Model.CalculateDirection(up, down, left, right);
+            _direction = Vector2.zero;
+            if (up) _direction += Vector2.up;
+            if (down) _direction += Vector2.down;
+            if (left) _direction += Vector2.left;
+            if (right) _direction += Vector2.right;
+            _direction.Normalize();
         }
 
         private void FixedUpdate()

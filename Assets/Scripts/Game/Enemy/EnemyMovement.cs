@@ -27,7 +27,7 @@ namespace Game.Enemy
         private void FixedUpdate()
         {
             if (!_target) return;
-            Vector2 direction = Model.CalculateDirection(transform.position, _target.position);
+            Vector2 direction = ((Vector2)_target.position - (Vector2)transform.position).normalized;
             _rb.MovePosition(_rb.position + direction * (Model.Speed * Time.fixedDeltaTime));
         }
     }

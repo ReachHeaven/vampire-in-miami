@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Game.Enemy
 {
     public class EnemyModel
@@ -15,11 +13,6 @@ namespace Game.Enemy
             Speed = speed;
             Damage = damage;
             AttackInterval = attackInterval;
-        }
-
-        public Vector2 CalculateDirection(Vector2 currentPos, Vector2 targetPos)
-        {
-            return (targetPos - currentPos).normalized;
         }
 
         public bool TryAttack(float deltaTime)
