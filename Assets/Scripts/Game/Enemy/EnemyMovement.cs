@@ -1,15 +1,17 @@
-﻿using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Game.Enemy
 {
     public class EnemyMovement : MonoBehaviour
     {
         [SerializeField] private float speed = 10f;
+        [SerializeField] private int damage = 30;
+        [SerializeField] private float attackInterval = 1f;
+
+        public EnemyModel Model { get; private set; }
+
         private Transform _target;
         private Rigidbody2D _rb;
-
 
         public void Init(Transform target)
         {
@@ -19,13 +21,14 @@ namespace Game.Enemy
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
+            Model = new EnemyModel(speed, damage, attackInterval);
         }
 
         private void FixedUpdate()
         {
             if (!_target) return;
-            Vector2 direction = (_target.transform.position - transform.position).normalized;
-            _rb.MovePosition(_rb.position + direction * (speed * Time.fixedDeltaTime));
+            Vector2 direction = Model.CalculateDirection(transform.position, _target.position);
+            _rb.MovePosition(_rb.position + direction * (Model.Speed * Time.fixedDeltaTime));
         }
     }
 }

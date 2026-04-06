@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 193515176572402267}
   - component: {fileID: -8298482955033673629}
   - component: {fileID: -3397233968230806996}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,6 +182,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Enemy.EnemyMovement
   speed: 3
+  damage: 30
+  attackInterval: 1
 --- !u!114 &-8298482955033673629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,5 +210,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fd0df207b524e02a905cc928f4c78d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Enemy.EnemyAttack
-  damage: 30
-  attackInterval: 0.01

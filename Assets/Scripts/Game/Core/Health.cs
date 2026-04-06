@@ -1,4 +1,4 @@
-﻿using Foundation.Events;
+using Foundation.Events;
 using UnityEngine;
 
 namespace Game.Core
@@ -7,31 +7,29 @@ namespace Game.Core
     {
         [SerializeField] private float maxHealth = 30;
         [SerializeField] private GameEvent onDiedEvent;
-        private float _currentHealth;
 
+        private HealthModel _model;
 
         private void Awake()
         {
-            _currentHealth = maxHealth;
+            _model = new HealthModel(maxHealth);
+            _model.Died += OnDied;
+        }
+
+        private void OnDestroy()
+        {
+            _model.Died -= OnDied;
         }
 
         public void TakeDamage(int damage)
         {
-            _currentHealth -= damage;
+            _model.TakeDamage(damage);
+        }
 
-            if (!IsDead()) return;
+        private void OnDied()
+        {
             onDiedEvent?.Raise();
-            Dead();
-        }
-
-        private void Dead()
-        {
             Destroy(gameObject);
-        }
-
-        private bool IsDead()
-        {
-            return _currentHealth <= 0;
         }
     }
 }

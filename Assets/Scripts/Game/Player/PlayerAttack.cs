@@ -1,4 +1,5 @@
-﻿using Game.Weapon;
+using System.Collections.Generic;
+using Game.Weapon;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,33 +7,70 @@ namespace Game.Player
 {
     public class PlayerAttack : MonoBehaviour
     {
-        [SerializeField] private float cooldown = 1;
         [SerializeField] private Bullet bulletPrefab;
-        private float _lastShotTime;
+        [SerializeField] private float aimRadius = 10f;
+        [SerializeField] private LayerMask enemyLayer;
+
+        private static readonly List<Collider2D> HitBuffer = new();
+        private ContactFilter2D _contactFilter = new();
+
+        private PlayerModel _model;
         private Camera _camera;
 
         private void Awake()
         {
             _camera = Camera.main;
+            _contactFilter.SetLayerMask(enemyLayer);
+        }
+
+        private void Start()
+        {
+            _model = GetComponent<PlayerMovement>().Model;
         }
 
         private void Update()
         {
-            if (Mouse.current.leftButton.wasPressedThisFrame && Time.time - _lastShotTime > cooldown)
+            if (Mouse.current.leftButton.wasPressedThisFrame && _model.TryShoot(Time.time))
             {
                 Shoot();
-                _lastShotTime = Time.time;
             }
         }
 
         private void Shoot()
         {
-            Vector2 currentMousePosition = Mouse.current.position.ReadValue();
-            Vector2 mouseWorld = _camera.ScreenToWorldPoint(currentMousePosition);
-            Vector2 direction = (mouseWorld - (Vector2)transform.position).normalized;
-            
+            Vector2 shooterPos = transform.position;
+            Vector2 targetPos = FindNearestEnemyPosition(shooterPos) ?? GetMouseWorldPosition();
+            Vector2 direction = _model.GetShootDirection(shooterPos, targetPos);
+
             Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             bullet.Init(direction);
+        }
+
+        private Vector2? FindNearestEnemyPosition(Vector2 origin)
+        {
+            int count = Physics2D.OverlapCircle(origin, aimRadius, _contactFilter, HitBuffer);
+            if (count == 0) return null;
+
+            float minDist = float.MaxValue;
+            Vector2 closest = origin;
+
+            for (int i = 0; i < count; i++)
+            {
+                float dist = Vector2.Distance(origin, HitBuffer[i].transform.position);
+                if (dist < minDist)
+                {
+                    minDist = dist;
+                    closest = HitBuffer[i].transform.position;
+                }
+            }
+
+            return closest;
+        }
+
+        private Vector2 GetMouseWorldPosition()
+        {
+            Vector2 mouseScreen = Mouse.current.position.ReadValue();
+            return _camera.ScreenToWorldPoint(mouseScreen);
         }
     }
 }

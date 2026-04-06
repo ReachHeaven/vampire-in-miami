@@ -1,4 +1,4 @@
-﻿using Game.Core;
+using Game.Core;
 using UnityEngine;
 
 namespace Game.Weapon
@@ -7,31 +7,33 @@ namespace Game.Weapon
     {
         [SerializeField] private float bulletSpeed = 10f;
         [SerializeField] private int bulletDamage = 30;
-        private Vector2 _direction;
+
+        private BulletModel _model;
         private Rigidbody2D _rb;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
+            _model = new BulletModel(bulletSpeed, bulletDamage);
         }
 
         private void FixedUpdate()
         {
-            _rb.MovePosition(_rb.position + _direction * (bulletSpeed * Time.fixedDeltaTime));
+            _rb.MovePosition(_rb.position + _model.Direction * (_model.Speed * Time.fixedDeltaTime));
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.TryGetComponent(out Health health))
             {
-                health.TakeDamage(bulletDamage);
+                health.TakeDamage(_model.Damage);
             }
             Destroy(gameObject);
         }
 
         public void Init(Vector2 direction)
         {
-            _direction = direction;
+            _model.Init(direction);
             Destroy(gameObject, 5f);
         }
     }
