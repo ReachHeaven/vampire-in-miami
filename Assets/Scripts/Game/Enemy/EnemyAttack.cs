@@ -1,3 +1,4 @@
+using System;
 using Game.Core;
 using UnityEngine;
 
@@ -5,18 +6,17 @@ namespace Game.Enemy
 {
     public class EnemyAttack : MonoBehaviour
     {
-        private EnemyModel _model;
-
-        private void Start()
-        {
-            _model = GetComponent<EnemyMovement>().Model;
-        }
+        [SerializeField]  private int damage = 30;
+        [SerializeField] private float attackInterval = 1f;
+        private float _lastAttackTime;
 
         private void OnCollisionStay2D(Collision2D other)
         {
-            if (!_model.TryAttack(Time.deltaTime)) return;
+            _lastAttackTime += Time.deltaTime;
+            if (_lastAttackTime < attackInterval) return;
             if (!other.collider.TryGetComponent(out Health health)) return;
-            health.TakeDamage(_model.Damage);
+            health.TakeDamage(damage);
+            _lastAttackTime = 0f;
         }
     }
 }

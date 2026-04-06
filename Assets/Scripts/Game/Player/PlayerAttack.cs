@@ -7,32 +7,29 @@ namespace Game.Player
 {
     public class PlayerAttack : MonoBehaviour
     {
+        [SerializeField] private float cooldown = 1;
         [SerializeField] private Bullet bulletPrefab;
         [SerializeField] private float aimRadius = 10f;
         [SerializeField] private LayerMask enemyLayer;
 
         private static readonly List<Collider2D> HitBuffer = new();
-        private ContactFilter2D _contactFilter = new();
-
-        private PlayerModel _model;
+        private ContactFilter2D _contactFilter;
+        private float _lastShotTime;
         private Camera _camera;
 
         private void Awake()
         {
             _camera = Camera.main;
+            _contactFilter = new ContactFilter2D();
             _contactFilter.SetLayerMask(enemyLayer);
-        }
-
-        private void Start()
-        {
-            _model = GetComponent<PlayerMovement>().Model;
         }
 
         private void Update()
         {
-            if (Mouse.current.leftButton.wasPressedThisFrame && _model.TryShoot(Time.time))
+            if (Mouse.current.leftButton.wasPressedThisFrame && Time.time - _lastShotTime > cooldown)
             {
                 Shoot();
+                _lastShotTime = Time.time;
             }
         }
 

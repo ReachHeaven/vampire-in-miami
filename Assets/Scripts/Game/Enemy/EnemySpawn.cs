@@ -1,35 +1,37 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Game.Enemy
 {
     public class EnemySpawn : MonoBehaviour
     {
-        [SerializeField] private EnemyMovement enemy;
-        [SerializeField] private float spawnInterval;
-        [SerializeField] private float spawnPadding = 1f;
-        [SerializeField] private Transform playerTransform;
+        [SerializeField] EnemyMovement enemy;
+        [SerializeField] float spawnInterval;
+        [SerializeField] float spawnPadding = 1f;
+        [SerializeField] Transform playerTransform;
 
         private Camera _camera;
-        private EnemySpawnModel _model;
+        private float _timer;
 
         private void Awake()
         {
             _camera = Camera.main;
-            _model = new EnemySpawnModel(spawnInterval);
         }
 
         private void Update()
         {
-            if (_model.ShouldSpawn(Time.deltaTime))
+            _timer += Time.deltaTime;
+            if (_timer >= spawnInterval)
             {
+                _timer = 0f;
                 SpawnEnemy();
             }
         }
 
         private void SpawnEnemy()
         {
-            Vector2 spawnPoint = GetSpawnPoint();
-            EnemyMovement instance = Instantiate(enemy, spawnPoint, Quaternion.identity);
+            EnemyMovement instance = Instantiate(enemy, GetSpawnPoint(), Quaternion.identity);
             instance.Init(playerTransform);
         }
 
@@ -38,19 +40,19 @@ namespace Game.Enemy
             var halfHeight = _camera.orthographicSize + spawnPadding;
             var halfWidth = halfHeight * _camera.aspect;
 
-            Vector2 cameraPos = _camera.transform.position;
+            Vector2 cameraPostion = _camera.transform.position;
             int randomSide = Random.Range(0, 4);
 
             return randomSide switch
             {
-                0 => new Vector2(Random.Range(cameraPos.x - halfWidth, cameraPos.x + halfWidth),
-                    cameraPos.y + halfHeight),
-                1 => new Vector2(Random.Range(cameraPos.x - halfWidth, cameraPos.x + halfWidth),
-                    cameraPos.y - halfHeight),
-                2 => new Vector2(cameraPos.x - halfWidth,
-                    Random.Range(cameraPos.y - halfHeight, cameraPos.y + halfHeight)),
-                _ => new Vector2(cameraPos.x + halfWidth,
-                    Random.Range(cameraPos.y - halfHeight, cameraPos.y + halfHeight))
+                0 => new Vector2(Random.Range(cameraPostion.x - halfWidth, cameraPostion.x + halfWidth),
+                    cameraPostion.y + halfHeight),
+                1 => new Vector2(Random.Range(cameraPostion.x - halfWidth, cameraPostion.x + halfWidth),
+                    cameraPostion.y - halfHeight),
+                2 => new Vector2(cameraPostion.x - halfWidth,
+                    Random.Range(cameraPostion.y - halfHeight, cameraPostion.y + halfHeight)),
+                _ => new Vector2(cameraPostion.x + halfWidth,
+                    Random.Range(cameraPostion.y - halfHeight, cameraPostion.y + halfHeight))
             };
         }
     }

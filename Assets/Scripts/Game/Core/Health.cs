@@ -7,28 +7,25 @@ namespace Game.Core
     {
         [SerializeField] private float maxHealth = 30;
         [SerializeField] private GameEvent onDiedEvent;
-
-        private HealthModel _model;
+        private float _currentHealth;
+        private bool IsDead() => _currentHealth <= 0;
 
         private void Awake()
         {
-            _model = new HealthModel(maxHealth);
-            _model.Died += OnDied;
-        }
-
-        private void OnDestroy()
-        {
-            _model.Died -= OnDied;
+            _currentHealth = maxHealth;
         }
 
         public void TakeDamage(int damage)
         {
-            _model.TakeDamage(damage);
+            _currentHealth -= damage;
+
+            if (!IsDead()) return;
+            onDiedEvent?.Raise();
+            Dead();
         }
 
-        private void OnDied()
+        private void Dead()
         {
-            onDiedEvent?.Raise();
             Destroy(gameObject);
         }
     }
