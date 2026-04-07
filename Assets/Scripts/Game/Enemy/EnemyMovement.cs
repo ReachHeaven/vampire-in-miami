@@ -6,14 +6,15 @@ namespace Game.Enemy
 {
     public class EnemyMovement : MonoBehaviour
     {
-        [SerializeField] private float speed = 10f;
+        private float _speed = 10f;
         private Transform _target;
         private Rigidbody2D _rb;
 
 
-        public void Init(Transform target)
+        public void Init(Transform target, float speed)
         {
             _target = target;
+            _speed = speed;
         }
 
         private void Awake()
@@ -25,7 +26,7 @@ namespace Game.Enemy
         {
             if (!_target) return;
             Vector2 direction = (_target.transform.position - transform.position).normalized;
-            _rb.MovePosition(_rb.position + direction * (speed * Time.fixedDeltaTime));
+            _rb.MovePosition(_rb.position + direction * (_speed * Time.fixedDeltaTime));
         }
     }
 }

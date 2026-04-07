@@ -5,14 +5,19 @@ namespace Game.Core
 {
     public class Health : MonoBehaviour
     {
-        [SerializeField] private float maxHealth = 30;
+        private float _maxHealth = 30;
         [SerializeField] private GameEvent onDiedEvent;
         private float _currentHealth;
         private bool IsDead() => _currentHealth <= 0;
 
+        public void Init(int maxHealth)
+        {
+            _maxHealth = maxHealth;
+        }
+
         private void Awake()
         {
-            _currentHealth = maxHealth;
+            _currentHealth = _maxHealth;
         }
 
         public void TakeDamage(int damage)
