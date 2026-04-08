@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Base
@@ -7,7 +8,9 @@ namespace Base
     {
         public int CurrentHealth { get; private set; }
         public int MaxHealth { get; private set; }
-        public bool isDead() => CurrentHealth >= 0;
+        public bool isDead => CurrentHealth <= 0;
+
+        public event Action OnDied;
 
         public Health(int maxHealth)
         {
@@ -17,11 +20,9 @@ namespace Base
 
         public void TakeDamage(int damage)
         {
+            if (isDead) return;
             CurrentHealth -= damage;
-            if (isDead())
-            {
-                Debug.Log($"Health is {CurrentHealth} / {MaxHealth}");
-            }
+            if (isDead) OnDied?.Invoke();
         }
     }
 }

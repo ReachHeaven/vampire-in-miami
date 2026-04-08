@@ -49,7 +49,7 @@ namespace Base.Wave
         private void SpawnEnemy(EnemyData data)
         {
             var enemy = Instantiate(data.EnemyPrefab, GetSpawnPoint(), Quaternion.identity);
-            enemy.OnDeath += OnEnemyDied;
+            enemy.Health.OnDied += OnEnemyDied;
             enemy.Init(G.GameMain.player.transform);
         }
 
