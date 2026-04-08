@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 193515176572402267}
   - component: {fileID: -8298482955033673629}
   - component: {fileID: -3397233968230806996}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,9 +181,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b792f2a99434abbb49711d4dfc8e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Enemy.EnemyMovement
-  speed: 3
-  damage: 30
-  attackInterval: 1
 --- !u!114 &-8298482955033673629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,7 +193,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99510ff500304fb8a51aa10854a3e21e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Core.Health
-  maxHealth: 30
   onDiedEvent: {fileID: 0}
 --- !u!114 &-3397233968230806996
 MonoBehaviour:

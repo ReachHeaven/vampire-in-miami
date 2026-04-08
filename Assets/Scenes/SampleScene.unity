@@ -300,10 +300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7827f1d4bf764548817735c8e410f78f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Enemy.EnemySpawn
-  enemy: {fileID: 193515176572402267, guid: 11ace74be402dad40b91f324173341c8, type: 3}
-  spawnInterval: 3
-  spawnPadding: 1
   playerTransform: {fileID: 1397158782}
+  spawnPadding: 1
 --- !u!4 &598255702
 Transform:
   m_ObjectHideFlags: 0
@@ -437,7 +435,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99510ff500304fb8a51aa10854a3e21e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Core.Health
-  maxHealth: 30
   onDiedEvent: {fileID: 0}
 --- !u!114 &1397158777
 MonoBehaviour:
@@ -451,8 +448,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299e29150bf848cd8e0ffbc1358d00be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Core.PlayerAttack
-  cooldown: 2
+  cooldown: 1
   bulletPrefab: {fileID: -2824203882230133950, guid: ee69e6cac4f8ea6499c54f1df5ad69fe, type: 3}
+  aimRadius: 10
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &1397158778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -751,6 +752,50 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1943626017
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1943626018}
+  - component: {fileID: 1943626019}
+  m_Layer: 0
+  m_Name: G
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1943626018
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943626017}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1943626019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943626017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2748c2d8394b4c6f93c714d2a237b586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameMain
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -760,3 +805,4 @@ SceneRoots:
   - {fileID: 1819848742}
   - {fileID: 598255702}
   - {fileID: 1397158782}
+  - {fileID: 1943626018}
