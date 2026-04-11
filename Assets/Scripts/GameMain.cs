@@ -10,17 +10,20 @@ public class GameMain : MonoBehaviour
     
     private void Start()
     {
-        Init();
+        Init().Forget();
     }
 
-    private void Init()
+    private async UniTask Init()
     {
         Debug.Log($"Init: GameMain");
         var test = CMS.Get<CMSTest>();
         G.HudView.SetMessage("Survive 10 minutes");
+        await UniTask.Delay(TimeSpan.FromSeconds(5));
         G.HudView.ClearMessage();
 
         G.HudView.SetMessage("Wave 1 incoming...");
+        await UniTask.Delay(TimeSpan.FromSeconds(5));
+        G.HudView.ClearMessage();
         Debug.Log($"Found: {test != null}, id: {test?.id}");
     }
 }

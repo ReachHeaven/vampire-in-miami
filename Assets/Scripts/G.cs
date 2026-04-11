@@ -32,9 +32,6 @@ public static class GameBootstrapper
             Debug.Log(G.GameMain);
             Debug.Log(G.HudView);
         };
-        
-        if (G.GameMain == null) Debug.LogError("Bootstrap: GameMain not found in scene");
-        if (G.HudView == null) Debug.LogError("Bootstrap: HudView not found in scene");
     }
 
     private static T CreateSimpleService<T>() where T : Component, IService
