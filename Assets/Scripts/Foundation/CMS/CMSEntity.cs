@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 namespace Foundation.CMS
@@ -8,7 +9,7 @@ namespace Foundation.CMS
     public class CMSEntity
     {
         public string id;
-        [SerializeReference, SubclassSelector] public List<EntityComponentDefinition> components = new();
+        [SerializeReference] public List<EntityComponentDefinition> components = new();
 
 
         public T Define<T>() where T : EntityComponentDefinition, new()
@@ -39,6 +40,37 @@ namespace Foundation.CMS
         {
             component = Get<T>();
             return component != null;
+        }
+        
+        public CMSEntity DeepCopy()
+        {
+            Debug.Log($"[DeepCopy] called, this hash = {GetHashCode()}, this.components hash = {components.GetHashCode()}");
+    
+            var clone = new CMSEntity();
+            clone.id = id;
+            clone.components = new List<EntityComponentDefinition>(components.Count);
+
+            Debug.Log($"[DeepCopy] after new List, clone.components hash = {clone.components.GetHashCode()}");
+            Debug.Log($"[DeepCopy] same list check inside: {ReferenceEquals(this.components, clone.components)}");
+
+            foreach (var component in components)
+                clone.components.Add(CloneComponent(component));
+
+            Debug.Log($"[DeepCopy] returning, clone hash = {clone.GetHashCode()}, clone.components hash = {clone.components.GetHashCode()}");
+    
+            return clone;
+        }
+
+        private static EntityComponentDefinition CloneComponent(EntityComponentDefinition source)
+        {
+            var type = source.GetType();
+            var clone = (EntityComponentDefinition)Activator.CreateInstance(type);
+
+            var fields = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var field in fields)
+                field.SetValue(clone, field.GetValue(source));
+
+            return clone;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Foundation.CMS
 {
@@ -26,6 +27,16 @@ namespace Foundation.CMS
                     _all.Add(Activator.CreateInstance(subclass) as CMSEntity);
             }
             
+            var prefabs = Resources.LoadAll<CMSEntityPfb>("CMS");
+            foreach (var pfb in prefabs)
+            {
+                var entity = new CMSEntity
+                {
+                    id = pfb.name,
+                    components = pfb.Components
+                };
+                _all.Add(entity);
+            }
         }
 
         public static void AddManually(CMSEntity entity)

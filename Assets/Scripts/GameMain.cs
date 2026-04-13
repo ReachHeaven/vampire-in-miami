@@ -1,29 +1,28 @@
-﻿using System;
-using Base.Player;
+﻿using Base.Player;
 using Cysharp.Threading.Tasks;
+using Foundation.CMS;
+using Tags;
 using Test;
 using UnityEngine;
 
 public class GameMain : MonoBehaviour
 {
     public Player player;
-    
-    private void Start()
-    {
-        Init().Forget();
-    }
 
-    private async UniTask Init()
+    public async UniTask Init()
     {
-        Debug.Log($"Init: GameMain");
         var test = CMS.Get<CMSTest>();
-        G.HudView.SetMessage("Survive 10 minutes");
-        await UniTask.Delay(TimeSpan.FromSeconds(5));
-        G.HudView.ClearMessage();
+        Debug.Log($"CMSTest: {CMS.Get<CMSTest>()}");
+        var copy = test.DeepCopy();
 
-        G.HudView.SetMessage("Wave 1 incoming...");
-        await UniTask.Delay(TimeSpan.FromSeconds(5));
-        G.HudView.ClearMessage();
-        Debug.Log($"Found: {test != null}, id: {test?.id}");
+        var testHealth = test.Get<TagHealth>();
+        var copyHealth = copy.Get<TagHealth>();
+
+        Debug.Log($"Same list? {ReferenceEquals(test.components, copy.components)}");
+        Debug.Log($"Same TagHealth? {ReferenceEquals(testHealth, copyHealth)}");
+        Debug.Log($"test count: {test.components.Count}, copy count: {copy.components.Count}");
+
+        copyHealth.Current = 150;
+        Debug.Log($"Original: {testHealth.Current}, Copy: {copyHealth.Current}");
     }
 }

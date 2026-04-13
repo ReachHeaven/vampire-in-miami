@@ -1,4 +1,6 @@
-﻿using UI;
+﻿using Cysharp.Threading.Tasks;
+using Foundation.CMS;
+using UI;
 using UnityEngine;
 
 public static class G
@@ -31,6 +33,7 @@ public static class GameBootstrapper
             G.HudView = Object.FindFirstObjectByType<HudView>();
             Debug.Log(G.GameMain);
             Debug.Log(G.HudView);
+            G.GameMain.Init().Forget();
         };
     }
 
@@ -40,6 +43,7 @@ public static class GameBootstrapper
 
         g.transform.parent = serviceHolder.transform;
         T t = g.AddComponent<T>();
+        Debug.Log($"CreateSimpleService: created GameObject '{g.name}', component type = {t.GetType()}, is MonoBehaviour = {t is MonoBehaviour}");
         t.Init();
         return g.GetComponent<T>();
     }
