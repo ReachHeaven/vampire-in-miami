@@ -3,18 +3,19 @@ using UnityEngine;
 
 namespace Foundation.CMS
 {
-    public class CMSEntityPfb : MonoBehaviour
+    public class CMSEntityPrefab : MonoBehaviour
     {
-        public string idCMS;
-
-        [SerializeReference, SubclassSelector] 
+        [SerializeReference, SubclassSelector]
         public List<EntityComponentDefinition> Components = new();
 
-        public string GetId() => idCMS;
+        public T Get<T>() where T : EntityComponentDefinition
+        {
+            foreach (var c in Components)
+                if (c is T tag) return tag;
+            return null;
+        }
 
-        public CMSEntity AsEntity() => CMS.Get<CMSEntity>(GetId());
-
-        public T As<T>() where T : EntityComponentDefinition, new()
-            => AsEntity().Get<T>();
+        public bool Has<T>() where T : EntityComponentDefinition
+            => Get<T>() != null;
     }
 }

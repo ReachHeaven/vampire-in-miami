@@ -193,14 +193,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1df26d6c244c4b60b8ccc83c58ff6fe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Foundation.CMS.CMSEntityPfb
-  idCMS: Player
   Components:
   - rid: 5479692462388936947
+  - rid: 5479692508035285059
   references:
     version: 2
     RefIds:
     - rid: 5479692462388936947
       type: {class: TagHealth, ns: Tags, asm: Assembly-CSharp}
       data:
-        Max: 0
-        Current: 0
+        Max: 100
+        Current: 100
+    - rid: 5479692508035285059
+      type: {class: TagSpeed, ns: Tags, asm: Assembly-CSharp}
+      data:
+        Value: 5
