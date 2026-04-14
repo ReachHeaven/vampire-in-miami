@@ -14,7 +14,7 @@ namespace UI
         
         public void ClearMessage() => Message.SetText("");
 
-        public void SetHealth(string total, string current)
+        public void SetHealth(int total, int current)
         {
             Health.text = $"Health: {current}/{total}";
         }
