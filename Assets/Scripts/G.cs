@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using Foundation.CMS;
+﻿using Systems;
 using UI;
 using UnityEngine;
 
@@ -8,6 +7,8 @@ public static class G
     public static GameMain GameMain;
     public static HudView HudView;
     public static SceneLoader SceneLoader;
+    public static WaveSystem WaveSystem;
+    public static HealthSystem HealthSystem;
 }
 
 [DefaultExecutionOrder(-9999)]
@@ -31,9 +32,10 @@ public static class GameBootstrapper
         {
             G.GameMain = Object.FindFirstObjectByType<GameMain>();
             G.HudView = Object.FindFirstObjectByType<HudView>();
-            Debug.Log(G.GameMain);
-            Debug.Log(G.HudView);
-            G.GameMain.Init().Forget();
+            G.WaveSystem = CreateSimpleService<WaveSystem>();
+            G.HealthSystem = CreateSimpleService<HealthSystem>();
+            G.SceneLoader = CreateSimpleService<SceneLoader>();
+            G.GameMain.Init();
         };
     }
 

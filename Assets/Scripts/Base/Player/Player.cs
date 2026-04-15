@@ -1,64 +1,45 @@
-﻿using System;
-using Base.Interfaces;
-using Foundation.CMS;
-using Tags;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Base.Player
 {
-    public class Player : MonoBehaviour, IDamageable
+    public class Player : MonoBehaviour
     {
-        public PlayerData PlayerData;
-        private Health _health;
+        public TagStats Stats;
+        public CMSEntity Instance;
         private Vector2 _direction;
         private Rigidbody2D _rb;
-
-        public Health Health => _health;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
-            _health = new Health(PlayerData.MaxHealth);
-            _health.OnDied += HandleDied;
+            var pfb = CMS.Get<CMSEntity>(Constants.Models.Player);
+            Instance = pfb.DeepCopy();
+            Stats = Instance.Get<TagStats>();
+            Stats.Health = Stats.MaxHealth;
         }
 
-        private void Update()
-        {
-            UpdateDirection();
-        }
+        private void Update() => UpdateDirection();
 
         private void FixedUpdate()
         {
-            ChaseTarget();
-        }
-
-        private void ChaseTarget()
-        {
-            _rb.MovePosition(_rb.position + _direction * (PlayerData.Speed * Time.fixedDeltaTime));
-        }
-
-        private void UpdateDirection()
-        {
-            Keyboard keyboard = Keyboard.current;
-            _direction = Vector2.zero;
-
-            if (keyboard.upArrowKey.isPressed || keyboard.wKey.isPressed) _direction += Vector2.up;
-            if (keyboard.downArrowKey.isPressed || keyboard.sKey.isPressed) _direction += Vector2.down;
-            if (keyboard.leftArrowKey.isPressed || keyboard.aKey.isPressed) _direction += Vector2.left;
-            if (keyboard.rightArrowKey.isPressed || keyboard.dKey.isPressed) _direction += Vector2.right;
-            _direction.Normalize();
+            _rb.MovePosition(_rb.position + _direction * (Stats.Speed * Time.fixedDeltaTime));
         }
 
         public void TakeDamage(int damage)
         {
-            _health.TakeDamage(damage);
+            G.HealthSystem.ApplyDamage(Instance, damage, this);
         }
 
-        private void HandleDied()
+        private void UpdateDirection()
         {
-            _health.OnDied -= HandleDied;
-            Destroy(gameObject);
+            Keyboard kb = Keyboard.current;
+            _direction = Vector2.zero;
+            if (kb.upArrowKey.isPressed || kb.wKey.isPressed) _direction += Vector2.up;
+            if (kb.downArrowKey.isPressed || kb.sKey.isPressed) _direction += Vector2.down;
+            if (kb.leftArrowKey.isPressed || kb.aKey.isPressed) _direction += Vector2.left;
+            if (kb.rightArrowKey.isPressed || kb.dKey.isPressed) _direction += Vector2.right;
+            _direction.Normalize();
         }
     }
 }
