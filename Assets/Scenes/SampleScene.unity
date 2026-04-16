@@ -305,8 +305,44 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
+      propertyPath: Components.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
+      propertyPath: 'managedReferences[-2]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
+      propertyPath: 'Components.Array.data[3]'
+      value: 5479692509020422440
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
+      propertyPath: 'managedReferences[5479692509020422435]'
+      value: Assembly-CSharp TagAttackAction
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
+      propertyPath: 'managedReferences[5479692509020422440]'
+      value: Assembly-CSharp TagWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
+      propertyPath: managedReferences[5479692509020422440].Range
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
       propertyPath: managedReferences[5479692509020422412].Health
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
+      propertyPath: managedReferences[5479692509020422440].Damage
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
+      propertyPath: managedReferences[5479692509020422440].bullet
+      value: 
+      objectReference: {fileID: -5099201595542119654, guid: ee69e6cac4f8ea6499c54f1df5ad69fe, type: 3}
+    - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
+      propertyPath: managedReferences[5479692509020422440].Cooldown
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6557440475626108549, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
       propertyPath: m_SortingOrder
@@ -1076,62 +1112,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1070261459}
   m_CullTransparentMesh: 1
---- !u!1 &1805108208
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1805108210}
-  - component: {fileID: 1805108209}
-  m_Layer: 0
-  m_Name: Zombie
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1805108209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1805108208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1729a46f79086449a991b5512530e60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: CMS::CMSEntityPfb
-  idCMS: 
-  Components:
-  - rid: 5479692509020422413
-  references:
-    version: 2
-    RefIds:
-    - rid: 5479692509020422413
-      type: {class: TagStats, ns: , asm: Assembly-CSharp}
-      data:
-        MaxHealth: 0
-        Health: 0
-        Speed: 0
---- !u!4 &1805108210
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1805108208}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1819848740
 GameObject:
   m_ObjectHideFlags: 0
@@ -1326,5 +1306,4 @@ SceneRoots:
   - {fileID: 1943626018}
   - {fileID: 901347263}
   - {fileID: 1057256062}
-  - {fileID: 1805108210}
   - {fileID: 512848866}

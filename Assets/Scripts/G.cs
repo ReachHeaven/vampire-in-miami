@@ -9,49 +9,56 @@ public static class G
     public static SceneLoader SceneLoader;
     public static WaveSystem WaveSystem;
     public static HealthSystem HealthSystem;
+    public static FightSystem FightSystem;
 }
 
 [DefaultExecutionOrder(-9999)]
 public static class GameBootstrapper
 {
     private static GameObject serviceHolder;
+    private static bool _servicesCreated;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void OnBeforeSceneLoad()
     {
-        Debug.Log("Bootstrap: started");
-        CMS.Init();
-        Debug.Log("Bootstrap: CMS initialized");
+        _servicesCreated = false;
         
-        serviceHolder = new GameObject("[Services]"); 
+        CMS.Init();
+
+
+        serviceHolder = new GameObject("[Services]");
         Object.DontDestroyOnLoad(serviceHolder);
 
         G.SceneLoader = CreateSimpleService<SceneLoader>();
-        
+
         G.SceneLoader.OnLoad += () =>
         {
             G.GameMain = Object.FindFirstObjectByType<GameMain>();
             G.HudView = Object.FindFirstObjectByType<HudView>();
-            G.WaveSystem = CreateSimpleService<WaveSystem>();
-            G.HealthSystem = CreateSimpleService<HealthSystem>();
-            G.SceneLoader = CreateSimpleService<SceneLoader>();
+
+            if (!_servicesCreated)
+            {
+                G.WaveSystem = CreateSimpleService<WaveSystem>();
+                G.HealthSystem = CreateSimpleService<HealthSystem>();
+                G.FightSystem = CreateSimpleService<FightSystem>();
+                _servicesCreated = true;
+            }
+
             G.GameMain.Init();
         };
     }
 
     private static T CreateSimpleService<T>() where T : Component, IService
     {
-        GameObject g = new GameObject(typeof(T).ToString());
-
-        g.transform.parent = serviceHolder.transform;
-        T t = g.AddComponent<T>();
-        Debug.Log($"CreateSimpleService: created GameObject '{g.name}', component type = {t.GetType()}, is MonoBehaviour = {t is MonoBehaviour}");
-        t.Init();
-        return g.GetComponent<T>();
+        var go = new GameObject(typeof(T).Name);
+        go.transform.parent = serviceHolder.transform;
+        var service = go.AddComponent<T>();
+        service.Init();
+        return service;
     }
 }
 
 public interface IService
 {
-    public void Init();
+    void Init();
 }

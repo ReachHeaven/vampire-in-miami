@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 6481215355254735921}
   - component: {fileID: 5283619446170557054}
   - component: {fileID: 3443155322194094017}
-  - component: {fileID: -2824203882230133950}
+  - component: {fileID: -5099201595542119654}
+  - component: {fileID: -6592219139146275385}
   m_Layer: 8
   m_Name: Bullet
   m_TagString: Untagged
@@ -157,7 +158,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &-2824203882230133950
+--- !u!114 &-5099201595542119654
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,8 +167,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 4242147905479687887}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2084592c0f14a9cb2c2e5d6d9975839, type: 3}
+  m_Script: {fileID: 11500000, guid: e1729a46f79086449a991b5512530e60, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Game.Core.Bullet
-  bulletSpeed: 10
-  bulletDamage: 30
+  m_EditorClassIdentifier: CMS::CMSEntityPfb
+  idCMS: CMS/Bullet
+  Components:
+  - rid: 5479692509020422436
+  - rid: 5479692509020422449
+  references:
+    version: 2
+    RefIds:
+    - rid: 5479692509020422436
+      type: {class: TagCMSEntity, ns: Runtime, asm: CMS}
+      data:
+        pfb: {fileID: -5099201595542119654}
+    - rid: 5479692509020422449
+      type: {class: TagBullet, ns: , asm: Assembly-CSharp}
+      data:
+        Speed: 5
+        Damage: 0
+--- !u!114 &-6592219139146275385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4242147905479687887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f01fe93427b40f5a99a657da3ac84fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Bullet

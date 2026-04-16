@@ -13,18 +13,25 @@ namespace Base.Player
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
-            var pfb = CMS.Get<CMSEntity>(Constants.Models.Player);
-            Instance = pfb.DeepCopy();
+            Instance = CMS.Get<CMSEntity>(Constants.Models.Player).DeepCopy();
             Stats = Instance.Get<TagStats>();
             Stats.Health = Stats.MaxHealth;
         }
 
-        private void Update() => UpdateDirection();
+        private void Update()
+        {
+            UpdateDirection();
+            if (Mouse.current.leftButton.wasPressedThisFrame)
+            {
+                G.FightSystem.Shoot(Instance, this);
+            }
+        }
 
         private void FixedUpdate()
         {
             _rb.MovePosition(_rb.position + _direction * (Stats.Speed * Time.fixedDeltaTime));
         }
+
 
         public void TakeDamage(int damage)
         {

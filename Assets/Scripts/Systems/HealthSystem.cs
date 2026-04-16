@@ -9,11 +9,11 @@ namespace Systems
         {
             Debug.Log($"{this} Init");
         }
+
         public void ApplyDamage(CMSEntity entity, int damage, MonoBehaviour source)
         {
             if (!entity.Is<TagStats>(out var stats)) return;
-            if (stats.Health <= 0) return;
-            
+
             stats.Health -= damage;
             if (stats.Health <= 0) Kill(entity, source);
         }
@@ -22,13 +22,14 @@ namespace Systems
         {
             if (!entity.Is<TagStats>(out var stats)) return;
             if (stats.Health <= 0) return;
-            
+
             stats.Health = Mathf.Min(stats.Health + restored, stats.MaxHealth);
         }
 
         public void Kill(CMSEntity entity, MonoBehaviour source)
         {
-            if (entity.Is<TagDeathAction>(out var actor))
+            Debug.Log($"{this} Killed");
+            if (entity.IsAbstract<TagDeathAction>(out var actor))
             {
                 actor.OnKill(source.gameObject);
             }

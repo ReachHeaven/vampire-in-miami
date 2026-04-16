@@ -4,7 +4,7 @@
 public class TagWeapon : EntityComponentDefinition
 {
     public int Damage;
-    public int Speed;
+    public int Cooldown;
     public int Range;
-    public CMSEntity bullet;
+    public CMSEntityPfb bullet;
 }

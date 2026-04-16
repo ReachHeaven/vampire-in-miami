@@ -5,6 +5,9 @@ namespace Constants
     {
 
         // --- Ungrouped ---
+        public const string Bullet = "CMS/Bullet";
         public const string Player = "CMS/Player";
+        public const string Wave01 = "CMS/Wave01";
+        public const string Zombie = "CMS/Zombie";
     }
 }

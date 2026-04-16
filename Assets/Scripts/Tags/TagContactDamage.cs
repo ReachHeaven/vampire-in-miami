@@ -1,7 +1,7 @@
 ﻿using System;
 
 [Serializable]
-public class TagContactDamage
+public class TagContactDamage : EntityComponentDefinition
 {
     public int Damage;
 }

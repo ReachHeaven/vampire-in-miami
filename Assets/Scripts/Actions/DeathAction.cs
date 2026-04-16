@@ -14,6 +14,7 @@ namespace Actions
     {
         public override void OnKill(GameObject actor)
         {
+            Debug.Log("[Death] Player died");
             UnityEngine.Object.Destroy(actor);
         }
     }
@@ -23,7 +24,9 @@ namespace Actions
     {
         public override void OnKill(GameObject actor)
         {
-            G.WaveSystem.NotifyEnemyKilled();
+            Debug.Log("[Death] Enemy died");
+            var enemy = actor.GetComponent<Enemy>();
+            G.WaveSystem.NotifyEnemyKilled(enemy);
             UnityEngine.Object.Destroy(actor);
         }
     }

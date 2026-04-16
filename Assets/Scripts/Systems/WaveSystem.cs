@@ -1,22 +1,20 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class WaveSystem : MonoBehaviour, IService
 {
-    public Camera Camera;
+    private Camera _camera;
     private const float SpawnPadding = 1f;
     private bool _isSpawning;
     private int _aliveCount;
-
-    private void Awake()
-    {
-        Camera = Camera.main;
-    }
+    private readonly List<Enemy> _aliveEnemies = new();
 
     public void Init()
     {
-        Debug.Log($"[Wave] Initializing WaveSystem");
+        _camera = Camera.main;
+        Debug.Log("[WaveSystem] Init");
     }
 
     public async UniTask RunAllWaves()
@@ -40,7 +38,30 @@ public class WaveSystem : MonoBehaviour, IService
         Debug.Log("[Wave] All waves done");
     }
 
-    public void NotifyEnemyKilled() => _aliveCount--;
+    public void NotifyEnemyKilled(Enemy enemy)
+    {
+        _aliveEnemies.Remove(enemy);
+        _aliveCount--;
+    }
+
+    public Enemy FindNearestEnemy(Vector2 origin, float radius)
+    {
+        Enemy nearest = null;
+        float minDist = radius;
+
+        foreach (var enemy in _aliveEnemies)
+        {
+            if (!enemy) continue;
+            float dist = Vector2.Distance(origin, enemy.transform.position);
+            if (dist < minDist)
+            {
+                minDist = dist;
+                nearest = enemy;
+            }
+        }
+
+        return nearest;
+    }
 
     private async UniTask RunWave(TagWave wave)
     {
@@ -63,13 +84,14 @@ public class WaveSystem : MonoBehaviour, IService
         var instance = Instantiate(enemyPrefab.gameObject, GetSpawnPoint(), Quaternion.identity);
         var enemy = instance.GetComponent<Enemy>();
         enemy.Init(enemyPrefab.AsEntity(), G.GameMain.player.transform);
+        _aliveEnemies.Add(enemy);
     }
 
     private Vector2 GetSpawnPoint()
     {
-        float halfH = Camera.orthographicSize + SpawnPadding;
-        float halfW = halfH * Camera.aspect;
-        Vector2 cp = Camera.transform.position;
+        float halfH = _camera.orthographicSize + SpawnPadding;
+        float halfW = halfH * _camera.aspect;
+        Vector2 cp = _camera.transform.position;
         int side = Random.Range(0, 4);
         return side switch
         {

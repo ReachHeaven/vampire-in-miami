@@ -40,7 +40,7 @@ namespace Game.Player
             Vector2 direction = (targetPos - shooterPos).normalized;
 
             Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            bullet.Init(direction);
+            // bullet.Init(direction);
         }
 
         private Vector2? FindNearestEnemyPosition(Vector2 origin)
