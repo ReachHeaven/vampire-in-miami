@@ -34,12 +34,23 @@ namespace Base.Player
 
         private void FixedUpdate()
         {
-            // Debug.Log(G.Arena.collider);
-            // if (G.Arena.collider.OverlapPoint(transform.position))
-            // {
-            //     return;
-            // }
-            _rb.MovePosition(_rb.position + _direction * (State.Speed * Time.fixedDeltaTime));
+            MoveOnCollider();
+        }
+
+        private void MoveOnCollider()
+        {
+            float offset = 0.6f;
+            Vector2 nextPos = _direction * (State.Speed * Time.fixedDeltaTime);
+
+            if (G.Arena.collider.OverlapPoint((Vector2)transform.position + _direction * offset))
+            {
+                _rb.MovePosition(_rb.position + nextPos);
+            }
+            else
+            {
+                Vector2 smoothBack = Vector2.Lerp(_rb.position, _rb.position - nextPos, 0.01f);
+                _rb.MovePosition(smoothBack);
+            }
         }
 
         public void TakeDamage(int damage)

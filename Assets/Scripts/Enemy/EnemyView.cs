@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyView : ViewBase
 {
     public EnemyState State;
+    public int ExperienceThrown = 50;
     private Transform _target;
     private Rigidbody2D _rb;
 
@@ -35,6 +36,9 @@ public class EnemyView : ViewBase
         if (State.IsDead)
         {
             G.Waves.NotifyKilled(this);
+            G.Player.State.TryGetLevel(State.ExpirienceGained);
+            G.Hud.SetExperience(G.Player.State.Experience, G.Player.State.ExperienceToNextLevel);
+            G.Hud.SetLevel(G.Player.State.Level);
             Destroy(gameObject);
         }
     }

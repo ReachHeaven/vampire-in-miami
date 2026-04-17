@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -1430419971023006342}
   - component: {fileID: -3839130178013799285}
   - component: {fileID: 7910183268287316126}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ MonoBehaviour:
       type: {class: TagStats, ns: , asm: Assembly-CSharp}
       data:
         MaxHealth: 100
-        Speed: 3
+        Speed: 10
 --- !u!50 &-1430419971023006342
 Rigidbody2D:
   serializedVersion: 5

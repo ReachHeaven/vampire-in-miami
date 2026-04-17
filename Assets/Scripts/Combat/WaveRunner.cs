@@ -22,7 +22,7 @@ public class WaveRunner : MonoBehaviour
             .Select(x => x.tag)
             .OrderBy(w => w.Order)
             .ToList();
-        
+
 
         foreach (var wave in waves)
         {
@@ -71,6 +71,7 @@ public class WaveRunner : MonoBehaviour
                 await UniTask.Delay(entry.SpawnInterval);
             }
         }
+
         _isSpawning = false;
     }
 
@@ -80,5 +81,13 @@ public class WaveRunner : MonoBehaviour
         var enemy = instance.GetComponent<EnemyView>();
         enemy.Init(enemyPrefab.AsEntity(), G.Player.transform);
         _aliveEnemies.Add(enemy);
+    }
+
+    public void KillAllEnemies()
+    {
+        foreach (var e in _aliveEnemies)
+        {
+            Destroy(e.gameObject);
+        }
     }
 }

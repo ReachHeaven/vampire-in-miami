@@ -7,7 +7,11 @@ namespace Player
     {
         public int Health;
         public float Speed;
+        public int Level = 0;
         public TagWeapon Weapon;
+        public int Experience;
+        public int ExperienceToNextLevel = 100;
+
         public bool IsDead => Health <= 0;
 
         public PlayerState(CMSEntity model)
@@ -17,6 +21,16 @@ namespace Player
             Health = stats.MaxHealth;
             Speed = stats.Speed;
             Weapon = model.Get<TagWeapon>();
+        }
+
+        public void TryGetLevel(int experience)
+        {
+            Experience += experience;
+            if (Experience >= ExperienceToNextLevel)
+            {
+                Level += 1;
+                Experience = 0;
+            }
         }
 
         public void ApplyDamage(int dmg) =>

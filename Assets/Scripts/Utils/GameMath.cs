@@ -9,7 +9,7 @@ public static class GameMath
         coloredString += "</color>";
         return coloredString;
     }
-
+    
     public static Vector2 DirectionToMouse2D(Vector2 from, Camera camera)
     {
         Vector2 mousePosition = MousePosition2D(camera);
@@ -42,6 +42,4 @@ public static class GameMath
             _ => new Vector2(cp.x + halfW, Random.Range(cp.y - halfH, cp.y + halfH))
         };
     }
-    
-    
 }

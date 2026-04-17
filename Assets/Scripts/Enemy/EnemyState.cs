@@ -6,6 +6,7 @@ public class EnemyState : ObjectState
     public int Health;
     public float Speed;
     public int ContactDamage;
+    public int ExpirienceGained = 50; 
     public bool IsDead => Health <= 0;
 
     public EnemyState(CMSEntity model)
