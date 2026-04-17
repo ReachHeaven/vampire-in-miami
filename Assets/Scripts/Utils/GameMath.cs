@@ -28,7 +28,7 @@ public static class GameMath
         return camera.ScreenToWorldPoint(Input.mousePosition);
     }
     
-    public static Vector2 GetSpawnPoint(Camera camera, float spawnPadding = 1f)
+    public static Vector2 GetSpawnPoint(Camera camera, float spawnPadding = 0.5f)
     {
         float halfH = camera.orthographicSize + spawnPadding;
         float halfW = halfH * camera.aspect;

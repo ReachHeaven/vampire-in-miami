@@ -11,5 +11,6 @@ public class Bootstrap
         Debug.Log("Bootstrapper: Initialization started");
 
         CMS.Unload();
-        CMS.Init();    }
+        CMS.Init();
+    }
 }
