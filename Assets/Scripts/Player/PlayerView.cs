@@ -69,7 +69,7 @@ namespace Base.Player
 
         private void TryShoot()
         {
-            var weapon = State.Weapon;
+            var weapon = State.Model.Get<TagWeapon>();
             if (weapon == null || !weapon.bullet) return;
             if (Time.time - _lastShotTime < weapon.Cooldown) return;
             _lastShotTime = Time.time;

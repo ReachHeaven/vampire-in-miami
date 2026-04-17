@@ -23,12 +23,12 @@ namespace UI
         public void SetLevel(int current)
         {
             Debug.Log($"Level: {current}");
-            Health.text = $"Level: {current}";
+            Level.text = $"Level: {current}";
         }
-        public void SetExperience(int total, int current)
+        public void SetExperience(int current, int total)
         {
             Debug.Log( $"Experience: {current}/{total}");
-            Health.text = $"Experience: {current}/{total}";
+            Experience.text = $"Experience: {current}/{total}";
         }
 
         public void SetWave(string current, string total)

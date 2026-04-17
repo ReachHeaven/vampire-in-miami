@@ -111,7 +111,7 @@ MonoBehaviour:
   Components:
   - rid: 5479692509020422412
   - rid: 5479692509020422416
-  - rid: 5479692509020422418
+  - rid: 5479692575970426951
   - rid: 5479692509020422486
   references:
     version: 2
@@ -120,19 +120,19 @@ MonoBehaviour:
       type: {class: TagStats, ns: , asm: Assembly-CSharp}
       data:
         MaxHealth: 100
-        Health: 100
         Speed: 1
     - rid: 5479692509020422416
       type: {class: TagCMSEntity, ns: Runtime, asm: CMS}
       data:
         pfb: {fileID: 6807909839602471624}
-    - rid: 5479692509020422418
-      type: {class: EnemyDeathAction, ns: Actions, asm: Assembly-CSharp}
-      data: 
     - rid: 5479692509020422486
       type: {class: TagContactDamage, ns: , asm: Assembly-CSharp}
       data:
         Damage: 50
+    - rid: 5479692575970426951
+      type: {class: TagExperienceDrop, ns: , asm: Assembly-CSharp}
+      data:
+        Amount: 50
 --- !u!50 &7794998863780285008
 Rigidbody2D:
   serializedVersion: 5
@@ -218,15 +218,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa7e7ab23e84ecab44fa7b5a2f9820f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  Instance:
-    id: 
-    components: []
-  Stats:
-    MaxHealth: 0
-    Health: 0
-    Speed: 0
-  _target: {fileID: 0}
-  _rb: {fileID: 0}
-  references:
-    version: 2
-    RefIds: []

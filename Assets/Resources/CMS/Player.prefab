@@ -111,6 +111,7 @@ MonoBehaviour:
   Components:
   - rid: 5479692575970426948
   - rid: 5479692575970426949
+  - rid: 5479692575970426950
   references:
     version: 2
     RefIds:
@@ -127,6 +128,10 @@ MonoBehaviour:
       data:
         MaxHealth: 100
         Speed: 10
+    - rid: 5479692575970426950
+      type: {class: TagExperience, ns: , asm: Assembly-CSharp}
+      data:
+        ExperienceToNextLevel: 100
 --- !u!50 &-1430419971023006342
 Rigidbody2D:
   serializedVersion: 5

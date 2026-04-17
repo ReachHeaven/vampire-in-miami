@@ -7,10 +7,9 @@ namespace Player
     {
         public int Health;
         public float Speed;
-        public int Level = 0;
-        public TagWeapon Weapon;
+        public int Level;
         public int Experience;
-        public int ExperienceToNextLevel = 100;
+        public int ExperienceToNextLevel;
 
         public bool IsDead => Health <= 0;
 
@@ -20,17 +19,15 @@ namespace Player
             var stats = model.Get<TagStats>();
             Health = stats.MaxHealth;
             Speed = stats.Speed;
-            Weapon = model.Get<TagWeapon>();
+            ExperienceToNextLevel = model.Get<TagExperience>().ExperienceToNextLevel;
         }
 
         public void TryGetLevel(int experience)
         {
             Experience += experience;
-            if (Experience >= ExperienceToNextLevel)
-            {
-                Level += 1;
-                Experience = 0;
-            }
+            if (Experience < ExperienceToNextLevel) return;
+            Level += 1;
+            Experience = 0;
         }
 
         public void ApplyDamage(int dmg) =>

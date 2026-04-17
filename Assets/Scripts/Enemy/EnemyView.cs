@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyView : ViewBase
 {
     public EnemyState State;
-    public int ExperienceThrown = 50;
     private Transform _target;
     private Rigidbody2D _rb;
 
