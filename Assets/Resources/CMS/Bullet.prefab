@@ -173,19 +173,16 @@ MonoBehaviour:
   idCMS: CMS/Bullet
   Components:
   - rid: 5479692509020422436
-  - rid: 5479692509020422449
+  - rid: -2
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 5479692509020422436
       type: {class: TagCMSEntity, ns: Runtime, asm: CMS}
       data:
         pfb: {fileID: -5099201595542119654}
-    - rid: 5479692509020422449
-      type: {class: TagBullet, ns: , asm: Assembly-CSharp}
-      data:
-        Speed: 5
-        Damage: 0
 --- !u!114 &-6592219139146275385
 MonoBehaviour:
   m_ObjectHideFlags: 0

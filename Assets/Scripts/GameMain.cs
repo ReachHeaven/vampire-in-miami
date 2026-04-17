@@ -1,19 +1,27 @@
-﻿using System.Linq;
 using Base.Player;
 using Cysharp.Threading.Tasks;
-using Test;
+using UI;
 using UnityEngine;
 
 public class GameMain : MonoBehaviour
 {
-    public Player player;
-
-    public async void Init()
+    private void Awake()
     {
-        player = FindFirstObjectByType<Player>();
-        
-        Debug.Log("=== GameMain.Init ===");
+        G.GameMain = this;
+        G.Hud = FindFirstObjectByType<HudView>();
+    }
 
-        await new IntroSequence().Play();
+    private void Start()
+    {
+        G.Hud.SetHealth(
+            G.Player.State.Tag<TagStats>().MaxHealth,
+            G.Player.State.Health);
+        G.Waves.RunAll().Forget();
+    }
+
+    public void OnAllWavesCleared()
+    {
+        G.Hud.SetMessage("All waves cleared");
+        Debug.Log("[GameMain] All waves cleared!");
     }
 }

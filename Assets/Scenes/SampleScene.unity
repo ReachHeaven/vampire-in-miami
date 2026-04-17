@@ -313,6 +313,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
+      propertyPath: 'Components.Array.data[2]'
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
       propertyPath: 'Components.Array.data[3]'
       value: 5479692509020422440
       objectReference: {fileID: 0}
@@ -341,8 +345,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -5099201595542119654, guid: ee69e6cac4f8ea6499c54f1df5ad69fe, type: 3}
     - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
+      propertyPath: managedReferences[5479692575970426948].Damage
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
       propertyPath: managedReferences[5479692509020422440].Cooldown
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
+      propertyPath: managedReferences[5479692509020422440].BulletSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
+      propertyPath: managedReferences[5479692575970426948].BulletSpeed
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6557440475626108549, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
       propertyPath: m_SortingOrder
@@ -507,8 +523,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fe58214611e4dec86fbc5602b5245c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Core.CameraMovement
-  target: {fileID: 0}
-  speed: 5
 --- !u!1 &598255700
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,8 +552,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7827f1d4bf764548817735c8e410f78f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Enemy.EnemySpawn
-  playerTransform: {fileID: 0}
-  spawnPadding: 1
 --- !u!4 &598255702
 Transform:
   m_ObjectHideFlags: 0
@@ -1260,8 +1272,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1943626018}
   - component: {fileID: 1943626019}
+  - component: {fileID: 1943626020}
   m_Layer: 0
-  m_Name: G
+  m_Name: GameMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1294,7 +1307,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2748c2d8394b4c6f93c714d2a237b586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameMain
-  player: {fileID: 0}
+--- !u!114 &1943626020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943626017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dbf9d4d6020e5f4e8fc43e934970a1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveRunner
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

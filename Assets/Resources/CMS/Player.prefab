@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3680806877711716201}
   - component: {fileID: -1430419971023006342}
   - component: {fileID: -3839130178013799285}
-  - component: {fileID: 4416694302240303640}
+  - component: {fileID: 7910183268287316126}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -109,33 +109,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: CMS::CMSEntityPfb
   idCMS: CMS/Player
   Components:
-  - rid: 5479692509020422412
-  - rid: 5479692509020422416
-  - rid: 5479692509020422417
-  - rid: 5479692509020422438
+  - rid: 5479692575970426948
+  - rid: 5479692575970426949
   references:
     version: 2
     RefIds:
-    - rid: 5479692509020422412
-      type: {class: TagStats, ns: , asm: Assembly-CSharp}
-      data:
-        MaxHealth: 100
-        Health: 100
-        Speed: 5
-    - rid: 5479692509020422416
-      type: {class: TagCMSEntity, ns: Runtime, asm: CMS}
-      data:
-        pfb: {fileID: 3680806877711716201}
-    - rid: 5479692509020422417
-      type: {class: PlayerDeathAction, ns: Actions, asm: Assembly-CSharp}
-      data: 
-    - rid: 5479692509020422438
+    - rid: 5479692575970426948
       type: {class: TagWeapon, ns: , asm: Assembly-CSharp}
       data:
-        Damage: 100
+        Damage: 50
+        BulletSpeed: 5
         Cooldown: 1
         Range: 100
         bullet: {fileID: -5099201595542119654, guid: ee69e6cac4f8ea6499c54f1df5ad69fe, type: 3}
+    - rid: 5479692575970426949
+      type: {class: TagStats, ns: , asm: Assembly-CSharp}
+      data:
+        MaxHealth: 100
+        Speed: 3
 --- !u!50 &-1430419971023006342
 Rigidbody2D:
   serializedVersion: 5
@@ -209,7 +200,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &4416694302240303640
+--- !u!114 &7910183268287316126
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,16 +209,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6703708621884613735}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed963ff3142441339ec58fe5fcef8541, type: 3}
+  m_Script: {fileID: 11500000, guid: c4a917229313876478cb435b64bdeab6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Base.Player.Player
-  Stats:
-    MaxHealth: 0
-    Health: 0
-    Speed: 0
-  Instance:
-    id: 
-    components: []
-  references:
-    version: 2
-    RefIds: []
+  m_EditorClassIdentifier: Assembly-CSharp::Base.Player.PlayerView
