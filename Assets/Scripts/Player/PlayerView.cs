@@ -18,7 +18,7 @@ namespace Base.Player
             _rb = GetComponent<Rigidbody2D>();
             _camera = Camera.main;
 
-            var model = CMS.Get<CMSEntity>(Constants.Models.Player).DeepCopy();
+            var model = CMS.Get<CMSEntity>(Constants.Models.Player);
             State = new PlayerState(model);
             State.View = this;
 
@@ -61,15 +61,12 @@ namespace Base.Player
             if (State.IsDead)
                 Destroy(gameObject);
         }
-
-        private void OnPlayerDead()
-        {
-            G.Hud.SetHealth(State.Tag<TagStats>().MaxHealth, State.Health);
-        }
+        
 
         private void TryShoot()
         {
-            var weapon = State.Model.Get<TagWeapon>();
+            if (!State.Is<TagEquippedWeapon>(out var equipped)) return;
+            var weapon = equipped.WeaponPfb.As<TagWeapon>();
             if (weapon == null || !weapon.bullet) return;
             if (Time.time - _lastShotTime < weapon.Cooldown) return;
             _lastShotTime = Time.time;

@@ -1,3 +1,4 @@
+using System;
 using Base;
 using UnityEngine;
 
@@ -25,9 +26,12 @@ namespace Player
         public void TryGetLevel(int experience)
         {
             Experience += experience;
-            if (Experience < ExperienceToNextLevel) return;
-            Level += 1;
-            Experience = 0;
+
+            while (Experience >= ExperienceToNextLevel)
+            {
+                Level += 1;
+                Experience -= ExperienceToNextLevel;
+            }
         }
 
         public void ApplyDamage(int dmg) =>

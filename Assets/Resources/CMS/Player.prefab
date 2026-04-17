@@ -109,20 +109,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: CMS::CMSEntityPfb
   idCMS: CMS/Player
   Components:
-  - rid: 5479692575970426948
+  - rid: 5479692575970426955
   - rid: 5479692575970426949
   - rid: 5479692575970426950
+  - rid: 5479692575970426956
   references:
     version: 2
     RefIds:
-    - rid: 5479692575970426948
-      type: {class: TagWeapon, ns: , asm: Assembly-CSharp}
-      data:
-        Damage: 50
-        BulletSpeed: 5
-        Cooldown: 1
-        Range: 100
-        bullet: {fileID: -5099201595542119654, guid: ee69e6cac4f8ea6499c54f1df5ad69fe, type: 3}
     - rid: 5479692575970426949
       type: {class: TagStats, ns: , asm: Assembly-CSharp}
       data:
@@ -132,6 +125,14 @@ MonoBehaviour:
       type: {class: TagExperience, ns: , asm: Assembly-CSharp}
       data:
         ExperienceToNextLevel: 100
+    - rid: 5479692575970426955
+      type: {class: TagCMSEntity, ns: Runtime, asm: CMS}
+      data:
+        pfb: {fileID: 3680806877711716201}
+    - rid: 5479692575970426956
+      type: {class: TagEquippedWeapon, ns: , asm: Assembly-CSharp}
+      data:
+        WeaponPfb: {fileID: 8013234085725358621, guid: 73262de009e182847919686d70dee521, type: 3}
 --- !u!50 &-1430419971023006342
 Rigidbody2D:
   serializedVersion: 5

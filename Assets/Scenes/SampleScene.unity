@@ -407,7 +407,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
       propertyPath: Components.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
       propertyPath: 'managedReferences[-2]'
@@ -415,7 +415,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
       propertyPath: 'Components.Array.data[2]'
-      value: -2
+      value: 5479692575970426957
       objectReference: {fileID: 0}
     - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
       propertyPath: 'Components.Array.data[3]'
@@ -428,6 +428,10 @@ PrefabInstance:
     - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
       propertyPath: 'managedReferences[5479692509020422440]'
       value: Assembly-CSharp TagWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
+      propertyPath: 'managedReferences[5479692575970426957]'
+      value: Assembly-CSharp TagEquippedWeapon
       objectReference: {fileID: 0}
     - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
       propertyPath: managedReferences[5479692509020422440].Range
@@ -453,6 +457,10 @@ PrefabInstance:
       propertyPath: managedReferences[5479692509020422440].Cooldown
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
+      propertyPath: managedReferences[5479692575970426957].WeaponPfb
+      value: 
+      objectReference: {fileID: 8013234085725358621, guid: 73262de009e182847919686d70dee521, type: 3}
     - target: {fileID: 3680806877711716201, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
       propertyPath: managedReferences[5479692509020422440].BulletSpeed
       value: 0
