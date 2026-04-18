@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3903897254130981825}
   - component: {fileID: 8575627602269231972}
   m_Layer: 0
-  m_Name: Zombie
+  m_Name: Bat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.04456806, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -107,21 +107,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1729a46f79086449a991b5512530e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: CMS::CMSEntityPfb
-  idCMS: CMS/Zombie
+  idCMS: CMS/Bat
   Components:
   - rid: 5479692509020422412
   - rid: 5479692509020422416
   - rid: 5479692575970426951
   - rid: 5479692509020422486
-  - rid: 5479692575970426959
+  - rid: 5479692575970426960
   references:
     version: 2
     RefIds:
     - rid: 5479692509020422412
       type: {class: TagStats, ns: , asm: Assembly-CSharp}
       data:
-        MaxHealth: 100
-        Speed: 1
+        MaxHealth: 150
+        Speed: 3
     - rid: 5479692509020422416
       type: {class: TagCMSEntity, ns: Runtime, asm: CMS}
       data:
@@ -133,11 +133,11 @@ MonoBehaviour:
     - rid: 5479692575970426951
       type: {class: TagExperienceDrop, ns: , asm: Assembly-CSharp}
       data:
-        Amount: 50
-    - rid: 5479692575970426959
+        Amount: 200
+    - rid: 5479692575970426960
       type: {class: TagColor, ns: , asm: Assembly-CSharp}
       data:
-        Color: {r: 1, g: 0, b: 0, a: 1}
+        Color: {r: 0.0016078949, g: 0, b: 1, a: 1}
 --- !u!50 &7794998863780285008
 Rigidbody2D:
   serializedVersion: 5

@@ -5,7 +5,10 @@ namespace Constants
     {
 
         // --- Ungrouped ---
+        public const string Bat = "CMS/Bat";
         public const string Bullet = "CMS/Bullet";
+        public const string EnemyView = "CMS/View/EnemyView";
+        public const string Pistol = "CMS/Pistol";
         public const string Player = "CMS/Player";
         public const string Wave01 = "CMS/Wave01";
         public const string Zombie = "CMS/Zombie";

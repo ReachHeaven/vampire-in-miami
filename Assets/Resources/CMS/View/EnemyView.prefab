@@ -10,12 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8847093779398963210}
   - component: {fileID: 7371778543329060561}
-  - component: {fileID: 6807909839602471624}
   - component: {fileID: 7794998863780285008}
   - component: {fileID: 3903897254130981825}
   - component: {fileID: 8575627602269231972}
   m_Layer: 0
-  m_Name: Zombie
+  m_Name: EnemyView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,7 +85,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.42767292, g: 0.30528852, b: 0.30528852, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -95,49 +94,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &6807909839602471624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8664971912690728123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1729a46f79086449a991b5512530e60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: CMS::CMSEntityPfb
-  idCMS: CMS/Zombie
-  Components:
-  - rid: 5479692509020422412
-  - rid: 5479692509020422416
-  - rid: 5479692575970426951
-  - rid: 5479692509020422486
-  - rid: 5479692575970426959
-  references:
-    version: 2
-    RefIds:
-    - rid: 5479692509020422412
-      type: {class: TagStats, ns: , asm: Assembly-CSharp}
-      data:
-        MaxHealth: 100
-        Speed: 1
-    - rid: 5479692509020422416
-      type: {class: TagCMSEntity, ns: Runtime, asm: CMS}
-      data:
-        pfb: {fileID: 6807909839602471624}
-    - rid: 5479692509020422486
-      type: {class: TagContactDamage, ns: , asm: Assembly-CSharp}
-      data:
-        Damage: 50
-    - rid: 5479692575970426951
-      type: {class: TagExperienceDrop, ns: , asm: Assembly-CSharp}
-      data:
-        Amount: 50
-    - rid: 5479692575970426959
-      type: {class: TagColor, ns: , asm: Assembly-CSharp}
-      data:
-        Color: {r: 1, g: 0, b: 0, a: 1}
 --- !u!50 &7794998863780285008
 Rigidbody2D:
   serializedVersion: 5

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyFactory : ViewFactoryBase<EnemyView>
 {
-    protected override string PrefabPath => "CMS/Zombie";
+    protected override string PrefabPath => "CMS/View/EnemyView";
 
     public EnemyView Create(CMSEntity model)
     {

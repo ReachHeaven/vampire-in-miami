@@ -19,6 +19,7 @@ namespace Player
             BulletSpeed = w.BulletSpeed;
             Cooldown = w.Cooldown;
             Range = w.Range;
+
             BulletPfb = w.bullet ? w.bullet.gameObject : null;
         }
     }

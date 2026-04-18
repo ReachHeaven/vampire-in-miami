@@ -27,7 +27,7 @@ namespace Player
             Speed = stats.Speed;
             ExperienceToNextLevel = model.Get<TagExperience>().ExperienceToNextLevel;
 
-            if (model.Is<TagEquippedWeapon>(out var equipped))
+            if (model.Is<TagEquippedWeapon>(out var equipped) && equipped.WeaponPfb)
                 Weapon = new WeaponState(equipped.WeaponPfb.AsEntity());
         }
 

@@ -7,16 +7,21 @@ public class EnemyView : ViewBase
     public EnemyState State;
     private Transform _target;
     private Rigidbody2D _rb;
+    private SpriteRenderer _sr;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _sr = GetComponent<SpriteRenderer>();
     }
 
     public void Init(EnemyState state)
     {
         State = state;
         State.View = this;
+
+        if (State.Model.Is<TagColor>(out var tagColor))
+            _sr.color = tagColor.Color;
     }
 
     public void SetTarget(Transform target)

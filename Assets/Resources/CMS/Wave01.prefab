@@ -55,6 +55,9 @@ MonoBehaviour:
       data:
         Entries:
         - EnemyPfb: {fileID: 6807909839602471624, guid: 20256bc4593952c4db33bf83e9f67131, type: 3}
-          Count: 5
+          Count: 2
+          SpawnInterval: 1
+        - EnemyPfb: {fileID: 6807909839602471624, guid: 8aee6f90c6cc8154ea55ae10da8de9d7, type: 3}
+          Count: 2
           SpawnInterval: 1
         Order: 1
