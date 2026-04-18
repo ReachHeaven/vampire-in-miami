@@ -46,11 +46,6 @@ namespace Base.Player
             {
                 _rb.MovePosition(_rb.position + nextPos);
             }
-            else
-            {
-                Vector2 smoothBack = Vector2.Lerp(_rb.position, _rb.position - nextPos, 0.01f);
-                _rb.MovePosition(smoothBack);
-            }
         }
 
         public void TakeDamage(int damage)
