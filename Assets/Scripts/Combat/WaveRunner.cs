@@ -86,8 +86,9 @@ public class WaveRunner : MonoBehaviour
     public void KillAllEnemies()
     {
         foreach (var e in _aliveEnemies)
-        {
-            Destroy(e.gameObject);
-        }
+            if (e) Destroy(e.gameObject);
+
+        _aliveEnemies.Clear();
+        _aliveCount = 0;
     }
 }

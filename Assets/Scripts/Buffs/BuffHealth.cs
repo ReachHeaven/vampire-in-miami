@@ -10,7 +10,9 @@ namespace Buffs
 
         public void Execute()
         {
-            G.Player.State.Health += 10;
+            var state = G.Player.State;
+            state.MaxHealth += 10;
+            state.Heal(10);
         }
     }
 }

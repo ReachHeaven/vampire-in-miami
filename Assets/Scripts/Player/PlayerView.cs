@@ -39,13 +39,8 @@ namespace Base.Player
 
         private void MoveOnCollider()
         {
-            float offset = 0.6f;
-            Vector2 nextPos = _direction * (State.Speed * Time.fixedDeltaTime);
-
-            if (G.Arena.collider.OverlapPoint((Vector2)transform.position + _direction * offset))
-            {
-                _rb.MovePosition(_rb.position + nextPos);
-            }
+            var pos = GameMath.ClampToArena(_rb.position, _direction, State.Speed, G.Arena.collider);
+            _rb.MovePosition(pos);
         }
 
         public void TakeDamage(int damage)

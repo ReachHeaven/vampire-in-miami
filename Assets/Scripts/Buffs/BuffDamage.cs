@@ -9,7 +9,8 @@ namespace Buffs
 
         public void Execute()
         {
-            G.Player.State.Weapon.Damage += 10;
+            if (G.Player.State.HasWeapon)
+                G.Player.State.Weapon.Damage += 10;
         }
     }
 }
