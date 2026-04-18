@@ -16,7 +16,7 @@ public class GameMain : MonoBehaviour
     private void Start()
     {
         G.Hud.SetHealth(
-            G.Player.State.Tag<TagStats>().MaxHealth,
+            G.Player.State.MaxHealth,
             G.Player.State.Health);
         G.Waves.RunAll().Forget();
     }

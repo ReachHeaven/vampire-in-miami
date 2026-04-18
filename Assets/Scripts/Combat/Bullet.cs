@@ -34,12 +34,12 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public static void Spawn(TagWeapon weapon, Vector2 origin, Vector2 dir)
+    public static void Spawn(GameObject bulletPfb, Vector2 origin, Vector2 dir, int damage, float speed)
     {
-        if (!weapon.bullet) return;
+        if (!bulletPfb) return;
 
-        var go = Instantiate(weapon.bullet.gameObject, origin, Quaternion.identity);
+        var go = Instantiate(bulletPfb, origin, Quaternion.identity);
         var bullet = go.GetComponent<Bullet>();
-        bullet.Init(dir, weapon.Damage, weapon.BulletSpeed);
+        bullet.Init(dir, damage, speed);
     }
 }

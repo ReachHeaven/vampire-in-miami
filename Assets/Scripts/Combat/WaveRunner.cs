@@ -66,7 +66,7 @@ public class WaveRunner : MonoBehaviour
         {
             for (int i = 0; i < entry.Count; i++)
             {
-                SpawnEnemy(entry.EnemyPfb);
+                SpawnEnemy(entry.EnemyPfb.AsEntity());
                 _aliveCount++;
                 await UniTask.Delay(entry.SpawnInterval);
             }
@@ -75,11 +75,11 @@ public class WaveRunner : MonoBehaviour
         _isSpawning = false;
     }
 
-    private void SpawnEnemy(CMSEntityPfb enemyPrefab)
+    private void SpawnEnemy(CMSEntity model)
     {
-        var instance = Instantiate(enemyPrefab.gameObject, GameMath.GetSpawnPoint(_camera), Quaternion.identity);
-        var enemy = instance.GetComponent<EnemyView>();
-        enemy.Init(enemyPrefab.AsEntity(), G.Player.transform);
+        var enemy = G.EnemyFactory.Create(model);
+        enemy.transform.position = GameMath.GetSpawnPoint(_camera);
+        enemy.SetTarget(G.Player.transform);
         _aliveEnemies.Add(enemy);
     }
 

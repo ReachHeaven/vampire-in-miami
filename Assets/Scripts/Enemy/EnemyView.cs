@@ -13,10 +13,14 @@ public class EnemyView : ViewBase
         _rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Init(CMSEntity model, Transform target)
+    public void Init(EnemyState state)
     {
-        State = new EnemyState(model);
+        State = state;
         State.View = this;
+    }
+
+    public void SetTarget(Transform target)
+    {
         _target = target;
     }
 

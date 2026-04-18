@@ -56,29 +56,27 @@ namespace Base.Player
         public void TakeDamage(int damage)
         {
             State.ApplyDamage(damage);
-            G.Hud.SetHealth(State.Tag<TagStats>().MaxHealth, State.Health);
+            G.Hud.SetHealth(State.MaxHealth, State.Health);
 
             if (State.IsDead)
                 Destroy(gameObject);
         }
-        
 
         private void TryShoot()
         {
-            if (!State.Is<TagEquippedWeapon>(out var equipped)) return;
-            var weapon = equipped.WeaponPfb.As<TagWeapon>();
-            if (weapon == null || !weapon.bullet) return;
-            if (Time.time - _lastShotTime < weapon.Cooldown) return;
+            if (!State.HasWeapon) return;
+            var w = State.Weapon;
+            if (Time.time - _lastShotTime < w.Cooldown) return;
             _lastShotTime = Time.time;
 
             Vector2 shooterPos = transform.position;
-            var nearest = G.Waves.FindNearest(shooterPos, weapon.Range);
+            var nearest = G.Waves.FindNearest(shooterPos, w.Range);
             Vector2 targetPos = nearest != null
                 ? (Vector2)nearest.transform.position
                 : (Vector2)_camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             Vector2 direction = (targetPos - shooterPos).normalized;
 
-            Bullet.Spawn(weapon, shooterPos, direction);
+            Bullet.Spawn(w.BulletPfb, shooterPos, direction, w.Damage, w.BulletSpeed);
         }
 
         private void UpdateDirection()
