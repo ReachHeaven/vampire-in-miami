@@ -44,9 +44,10 @@ public class EnemyView : ViewBase
         if (State.IsDead)
         {
             G.Waves.NotifyKilled(this);
-            G.Player.State.TryGetLevel(State.ExperienceGained);
+            bool leveled = G.Player.State.TryGetLevel(State.ExperienceGained);
             G.Hud.SetExperience(G.Player.State.Experience, G.Player.State.ExperienceToNextLevel);
             G.Hud.SetLevel(G.Player.State.Level);
+            if (leveled) G.GameMain.OnLevelUp();
             Destroy(gameObject);
         }
     }

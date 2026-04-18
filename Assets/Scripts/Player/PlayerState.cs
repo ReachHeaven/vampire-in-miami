@@ -31,15 +31,19 @@ namespace Player
                 Weapon = new WeaponState(equipped.WeaponPfb.AsEntity());
         }
 
-        public void TryGetLevel(int experience)
+        public bool TryGetLevel(int experience)
         {
             Experience += experience;
+            bool leveled = false;
 
             while (Experience >= ExperienceToNextLevel)
             {
                 Level += 1;
                 Experience -= ExperienceToNextLevel;
+                leveled = true;
             }
+
+            return leveled;
         }
 
         public void ApplyDamage(int dmg) =>
