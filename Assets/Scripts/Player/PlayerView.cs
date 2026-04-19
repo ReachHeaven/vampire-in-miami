@@ -39,7 +39,7 @@ namespace Base.Player
 
         private void MoveOnCollider()
         {
-            var pos = GameMath.ClampToArena(_rb.position, _direction, State.Speed, G.Arena.collider);
+            var pos = MathUtil.ClampToArena(_rb.position, _direction, State.Speed, G.Arena.collider);
             _rb.MovePosition(pos);
         }
 

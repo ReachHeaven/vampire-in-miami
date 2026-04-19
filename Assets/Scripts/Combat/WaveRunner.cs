@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
@@ -62,14 +63,25 @@ public class WaveRunner : MonoBehaviour
     private async UniTask RunWave(TagWave wave)
     {
         _isSpawning = true;
+
+        var spawnPool = new List<(CMSEntity model, int interval)>();
+
         foreach (var entry in wave.Entries)
         {
             for (int i = 0; i < entry.Count; i++)
             {
-                SpawnEnemy(entry.EnemyPfb.AsEntity());
-                _aliveCount++;
-                await UniTask.Delay(entry.SpawnInterval);
+                spawnPool.Add((entry.EnemyPfb.AsEntity(), entry.SpawnInterval));
             }
+        }
+
+        var shuffledPool = spawnPool.OrderBy(x => UnityEngine.Random.value).ToList();
+
+        foreach (var spawnData in shuffledPool)
+        {
+            SpawnEnemy(spawnData.model);
+            _aliveCount++;
+
+            await UniTask.Delay(spawnData.interval);
         }
 
         _isSpawning = false;
@@ -78,15 +90,21 @@ public class WaveRunner : MonoBehaviour
     private void SpawnEnemy(CMSEntity model)
     {
         var enemy = G.EnemyFactory.Create(model);
-        enemy.transform.position = GameMath.GetSpawnPoint(_camera);
+        enemy.transform.position = MathUtil.GetSpawnPoint(_camera);
         enemy.SetTarget(G.Player.transform);
         _aliveEnemies.Add(enemy);
+    }
+
+    public bool IsEnemiesAlive()
+    {
+        return _aliveCount == 0;
     }
 
     public void KillAllEnemies()
     {
         foreach (var e in _aliveEnemies)
-            if (e) Destroy(e.gameObject);
+            if (e)
+                Destroy(e.gameObject);
 
         _aliveEnemies.Clear();
         _aliveCount = 0;
