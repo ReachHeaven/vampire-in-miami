@@ -2,6 +2,7 @@ using Base;
 using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Base.Player
 {
@@ -11,11 +12,13 @@ namespace Base.Player
         private Vector2 _direction;
         private Rigidbody2D _rb;
         private Camera _camera;
+        [FormerlySerializedAs("_playerAnimation")] public PlayerAnimation PlayerAnimation;
         private float _lastShotTime;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
+            PlayerAnimation = GetComponent<PlayerAnimation>();
             _camera = Camera.main;
 
             var model = CMS.Get<CMSEntity>(Constants.Models.Player);
@@ -28,6 +31,12 @@ namespace Base.Player
         private void Update()
         {
             UpdateDirection();
+            PlayerAnimation.SetMoving(_direction.sqrMagnitude > 0.01f);
+            if (_direction.x != 0)
+            {
+                var sr = GetComponent<SpriteRenderer>();
+                sr.flipX = _direction.x < 0;
+            }
             if (Mouse.current.leftButton.isPressed)
                 TryShoot();
         }

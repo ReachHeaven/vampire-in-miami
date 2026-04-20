@@ -55,6 +55,9 @@ public class EnemyView : ViewBase
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.TryGetComponent<PlayerView>(out var player))
+        {
             player.TakeDamage(State.ContactDamage);
+            G.Player.PlayerAnimation.PlayHit();
+        }
     }
 }
