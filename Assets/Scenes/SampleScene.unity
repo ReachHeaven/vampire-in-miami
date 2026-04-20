@@ -500,7 +500,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6703708621884613735, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1211970641}
   m_SourcePrefab: {fileID: 100100000, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
 --- !u!1 &519420028
 GameObject:
@@ -1468,6 +1471,23 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1211970633 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6703708621884613735, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
+  m_PrefabInstance: {fileID: 512848866}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1211970641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211970633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0573a2845609472f803444dabfaba155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerAnimation
 --- !u!1 &1244553850
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using Base;
 using Base.Player;
+using Runtime;
 using UnityEngine;
 
 public class EnemyView : ViewBase
@@ -20,8 +21,8 @@ public class EnemyView : ViewBase
         State = state;
         State.View = this;
 
-        if (State.Model.Is<TagColor>(out var tagColor))
-            _sr.color = tagColor.Color;
+        if (State.Model.Is<TagSprite>(out var tagSprite))
+            _sr.sprite = tagSprite.sprite;
     }
 
     public void SetTarget(Transform target)

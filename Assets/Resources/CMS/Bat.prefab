@@ -83,10 +83,10 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0.04456806, b: 1, a: 1}
+  m_Sprite: {fileID: -697763020151794088, guid: 1366e49dd3e45bb4795e66e100b18ce4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
   - rid: 5479692509020422416
   - rid: 5479692575970426951
   - rid: 5479692509020422486
-  - rid: 5479692575970426960
+  - rid: 5479692575970426968
   references:
     version: 2
     RefIds:
@@ -134,10 +134,10 @@ MonoBehaviour:
       type: {class: TagExperienceDrop, ns: , asm: Assembly-CSharp}
       data:
         Amount: 200
-    - rid: 5479692575970426960
-      type: {class: TagColor, ns: , asm: Assembly-CSharp}
+    - rid: 5479692575970426968
+      type: {class: TagSprite, ns: Runtime, asm: CMS}
       data:
-        Color: {r: 0.0016078949, g: 0, b: 1, a: 1}
+        sprite: {fileID: -697763020151794088, guid: 1366e49dd3e45bb4795e66e100b18ce4, type: 3}
 --- !u!50 &7794998863780285008
 Rigidbody2D:
   serializedVersion: 5
@@ -203,7 +203,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.875, y: 0.9375}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

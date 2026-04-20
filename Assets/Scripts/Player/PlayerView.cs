@@ -31,7 +31,7 @@ namespace Base.Player
         private void Update()
         {
             UpdateDirection();
-            PlayerAnimation.SetMoving(_direction.sqrMagnitude > 0.01f);
+            PlayerAnimation.SetMoving(_direction.magnitude > 0.01f);
             if (_direction.x != 0)
             {
                 var sr = GetComponent<SpriteRenderer>();

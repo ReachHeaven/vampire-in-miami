@@ -83,10 +83,10 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: -5782521184205631276, guid: 8692d28c5c607bf4fa736afb487d5494, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
   - rid: 5479692509020422416
   - rid: 5479692575970426951
   - rid: 5479692509020422486
-  - rid: 5479692575970426959
+  - rid: 5479692575970426969
   references:
     version: 2
     RefIds:
@@ -134,10 +134,10 @@ MonoBehaviour:
       type: {class: TagExperienceDrop, ns: , asm: Assembly-CSharp}
       data:
         Amount: 50
-    - rid: 5479692575970426959
-      type: {class: TagColor, ns: , asm: Assembly-CSharp}
+    - rid: 5479692575970426969
+      type: {class: TagSprite, ns: Runtime, asm: CMS}
       data:
-        Color: {r: 1, g: 0, b: 0, a: 1}
+        sprite: {fileID: -5782521184205631276, guid: 8692d28c5c607bf4fa736afb487d5494, type: 3}
 --- !u!50 &7794998863780285008
 Rigidbody2D:
   serializedVersion: 5
