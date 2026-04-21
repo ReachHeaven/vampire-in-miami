@@ -95,11 +95,6 @@ public class WaveRunner : MonoBehaviour
         _aliveEnemies.Add(enemy);
     }
 
-    public bool IsEnemiesAlive()
-    {
-        return _aliveCount == 0;
-    }
-
     public void KillAllEnemies()
     {
         foreach (var e in _aliveEnemies)
