@@ -1,5 +1,7 @@
+using System;
 using Base;
 using Base.Player;
+using DG.Tweening;
 using Runtime;
 using UnityEngine;
 
@@ -12,6 +14,8 @@ public class EnemyView : ViewBase
 
     private void Awake()
     {
+        transform.DOScale(Vector3.one * 1.02f, 0.5f)
+            .SetLoops(-1, LoopType.Yoyo).SetLink(gameObject);
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
     }

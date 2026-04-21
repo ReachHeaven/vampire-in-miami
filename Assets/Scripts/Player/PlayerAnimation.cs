@@ -1,52 +1,45 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 namespace Player
 {
     public class PlayerAnimation : MonoBehaviour
     {
-        private Vector3 _baseScale;
-        private float _bobTimer;
-        private bool _isMoving;
         private SpriteRenderer _sr;
+        private Tweener _tween;
+        private Tweener _hitTween;
 
         private void Awake()
         {
-            _baseScale = transform.localScale;
             _sr = GetComponent<SpriteRenderer>();
         }
 
         public void SetMoving(bool moving)
         {
-            _isMoving = moving;
-            if (!moving)
+            if (moving && _tween != null)
             {
-                transform.localScale = _baseScale;
-                _bobTimer = 0;
+                _tween = transform.DOScale(Vector3.one * 0.1f, 0.5f)
+                    .SetLoops(-1, LoopType.Yoyo)
+                    .SetEase(Ease.InOutSine)
+                    .SetLink(gameObject);
+            }
+            else if (!moving && _tween != null)
+            {
+                _tween.Kill();
+                _tween = null;
+                transform.localScale = Vector3.one;
             }
         }
 
         public void PlayHit()
         {
-            _sr.color = Color.red;
-            Invoke(nameof(ResetColor), 0.1f);
-        }
-
-        private void ResetColor()
-        {
+            _hitTween?.Kill();
             _sr.color = Color.white;
-        }
+            _hitTween = _sr.DOColor(Color.red, 0.5f)
+                .SetLoops(2, LoopType.Yoyo)
+                .SetLink(gameObject);
 
-        private void Update()
-        {
-            if (!_isMoving) return;
-
-            _bobTimer += Time.deltaTime * 10f;
-            float squash = 1f + Mathf.Sin(_bobTimer) * 0.1f;
-            transform.localScale = new Vector3(
-                _baseScale.x / squash,
-                _baseScale.y * squash,
-                _baseScale.z
-            );
+            transform.DOShakePosition(0.1f, 0.1f);
         }
     }
 }
