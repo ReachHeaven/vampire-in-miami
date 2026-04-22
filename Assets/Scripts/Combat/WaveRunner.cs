@@ -19,14 +19,15 @@ public class WaveRunner : MonoBehaviour
 
     public async UniTask RunAll()
     {
-        var waves = CMS.GetAllData<TagWave>()
+        var tag = CMS.GetAllData<TagAllWaves>()
             .Select(x => x.tag)
-            .OrderBy(w => w.Order)
-            .ToList();
+            .FirstOrDefault();
 
+        if (tag == null) return;
 
-        foreach (var wave in waves)
+        foreach (var wave in tag.Waves.OrderBy(w => w.Order))
         {
+            Debug.Log($"Run wave {wave.Order}");
             await RunWave(wave);
             await UniTask.WaitUntil(() => !_isSpawning && _aliveCount == 0);
             await UniTask.Delay(2000);
@@ -39,6 +40,7 @@ public class WaveRunner : MonoBehaviour
     {
         _aliveEnemies.Remove(enemy);
         _aliveCount--;
+        Debug.Log($"NotifyKilled, aliveCount {_aliveCount}");
     }
 
     public EnemyView FindNearest(Vector2 origin, float radius)
@@ -60,8 +62,9 @@ public class WaveRunner : MonoBehaviour
         return nearest;
     }
 
-    private async UniTask RunWave(TagWave wave)
+    private async UniTask RunWave(WaveDefinition wave)
     {
+        G.Hud.SetMessage($"Wave {wave.Order}");
         _isSpawning = true;
 
         var spawnPool = new List<(CMSEntity model, int interval)>();
@@ -69,9 +72,7 @@ public class WaveRunner : MonoBehaviour
         foreach (var entry in wave.Entries)
         {
             for (int i = 0; i < entry.Count; i++)
-            {
                 spawnPool.Add((entry.EnemyPfb.AsEntity(), entry.SpawnInterval));
-            }
         }
 
         var shuffledPool = spawnPool.OrderBy(x => UnityEngine.Random.value).ToList();
@@ -80,7 +81,6 @@ public class WaveRunner : MonoBehaviour
         {
             SpawnEnemy(spawnData.model);
             _aliveCount++;
-
             await UniTask.Delay(spawnData.interval);
         }
 

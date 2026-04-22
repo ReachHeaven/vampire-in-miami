@@ -7,7 +7,7 @@ namespace Player
     {
         public int Damage;
         public float BulletSpeed;
-        public int Cooldown;
+        public float Cooldown;
         public int Range;
         public GameObject BulletPfb;
 

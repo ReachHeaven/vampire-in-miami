@@ -55,6 +55,6 @@ MonoBehaviour:
       data:
         Damage: 100
         BulletSpeed: 5
-        Cooldown: 1
+        Cooldown: 0.5
         Range: 10
         bullet: {fileID: -5099201595542119654, guid: ee69e6cac4f8ea6499c54f1df5ad69fe, type: 3}

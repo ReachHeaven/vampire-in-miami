@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8586475108377609415}
-  - component: {fileID: 6954377897021728533}
+  - component: {fileID: 1645555500076047070}
   m_Layer: 0
   m_Name: Wave01
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6954377897021728533
+--- !u!114 &1645555500076047070
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,18 +46,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: CMS::CMSEntityPfb
   idCMS: CMS/Wave01
   Components:
-  - rid: 5479692509020422419
+  - rid: 5479692667748876363
   references:
     version: 2
     RefIds:
-    - rid: 5479692509020422419
-      type: {class: TagWave, ns: , asm: Assembly-CSharp}
+    - rid: 5479692667748876363
+      type: {class: TagAllWaves, ns: , asm: Assembly-CSharp}
       data:
-        Entries:
-        - EnemyPfb: {fileID: 6807909839602471624, guid: 20256bc4593952c4db33bf83e9f67131, type: 3}
-          Count: 5
-          SpawnInterval: 2000
-        - EnemyPfb: {fileID: 6807909839602471624, guid: 8aee6f90c6cc8154ea55ae10da8de9d7, type: 3}
-          Count: 5
-          SpawnInterval: 2000
-        Order: 1
+        Waves:
+        - Order: 1
+          Entries:
+          - EnemyPfb: {fileID: 6807909839602471624, guid: 8aee6f90c6cc8154ea55ae10da8de9d7, type: 3}
+            Count: 2
+            SpawnInterval: 2000
+          - EnemyPfb: {fileID: 6807909839602471624, guid: 20256bc4593952c4db33bf83e9f67131, type: 3}
+            Count: 2
+            SpawnInterval: 2000
+        - Order: 2
+          Entries:
+          - EnemyPfb: {fileID: 6807909839602471624, guid: 8aee6f90c6cc8154ea55ae10da8de9d7, type: 3}
+            Count: 150
+            SpawnInterval: 400
+          - EnemyPfb: {fileID: 6807909839602471624, guid: 20256bc4593952c4db33bf83e9f67131, type: 3}
+            Count: 100
+            SpawnInterval: 400

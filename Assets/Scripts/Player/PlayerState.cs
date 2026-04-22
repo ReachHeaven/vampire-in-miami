@@ -12,6 +12,7 @@ namespace Player
         public int Level;
         public int Experience;
         public int ExperienceToNextLevel;
+        public int MaxLevel = 10;
 
         public WeaponState Weapon;
 
@@ -33,6 +34,9 @@ namespace Player
 
         public bool TryGetLevel(int experience)
         {
+            if(Level >= MaxLevel)
+                return false;
+            
             Experience += experience;
             bool leveled = false;
 
