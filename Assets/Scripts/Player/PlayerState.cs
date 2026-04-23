@@ -12,7 +12,7 @@ namespace Player
         public int Level;
         public int Experience;
         public int ExperienceToNextLevel;
-        public int MaxLevel = 10;
+        public int MaxLevel;
 
         public WeaponState Weapon;
 
@@ -26,6 +26,7 @@ namespace Player
             MaxHealth = stats.MaxHealth;
             Health = MaxHealth;
             Speed = stats.Speed;
+            MaxLevel = model.Get<TagExperience>().MaxLevel;
             ExperienceToNextLevel = model.Get<TagExperience>().ExperienceToNextLevel;
 
             if (model.Is<TagEquippedWeapon>(out var equipped) && equipped.WeaponPfb)
@@ -34,9 +35,9 @@ namespace Player
 
         public bool TryGetLevel(int experience)
         {
-            if(Level >= MaxLevel)
+            if (Level >= MaxLevel)
                 return false;
-            
+
             Experience += experience;
             bool leveled = false;
 
@@ -47,6 +48,8 @@ namespace Player
                 leveled = true;
             }
 
+            if (Level > MaxLevel)
+                Level = MaxLevel;
             return leveled;
         }
 

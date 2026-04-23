@@ -125,6 +125,7 @@ MonoBehaviour:
       type: {class: TagExperience, ns: , asm: Assembly-CSharp}
       data:
         ExperienceToNextLevel: 100
+        MaxLevel: 10
     - rid: 5479692575970426955
       type: {class: TagCMSEntity, ns: Runtime, asm: CMS}
       data:

@@ -6,10 +6,6 @@ using UnityEngine;
 /// </summary>
 public static class MathUtil
 {
-    // ============================================================
-    //  CONSTANTS
-    // ============================================================
-
     public const float TAU = 6.2831853f;       // 2π — full rotation in radians
     public const float GOLDEN_RATIO = 1.6180339f;
     public const float SQRT2 = 1.4142136f;
