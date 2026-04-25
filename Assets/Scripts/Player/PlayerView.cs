@@ -1,4 +1,5 @@
 using Base;
+using DG.Tweening;
 using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -31,7 +32,7 @@ namespace Base.Player
         private void Update()
         {
             UpdateDirection();
-            PlayerAnimation.SetMoving(_direction.magnitude > 0.01f);
+            // PlayerAnimation.SetMoving(_direction.magnitude > 0.01f);
             if (_direction.x != 0)
             {
                 float scaleX = _direction.x < 0 ? -1f : 1f;
@@ -48,9 +49,13 @@ namespace Base.Player
 
         private void MoveOnCollider()
         {
-            // var pos = MathUtil.ClampToArena(_rb.position, _direction, State.Speed, G.Arena.collider);
             Vector2 targetPosition = _rb.position + _direction * (State.Speed * Time.fixedDeltaTime);
             _rb.MovePosition(targetPosition);
+
+            if (_direction.sqrMagnitude > 0.01f && !DOTween.IsTweening(transform))
+            {
+                transform.DOScaleY(1.2f, 0.2f).SetLoops(2, LoopType.Yoyo);
+            }
         }
 
         public void TakeDamage(int damage)
