@@ -34,8 +34,8 @@ namespace Base.Player
             PlayerAnimation.SetMoving(_direction.magnitude > 0.01f);
             if (_direction.x != 0)
             {
-                var sr = GetComponent<SpriteRenderer>();
-                sr.flipX = _direction.x < 0;
+                float scaleX = _direction.x < 0 ? -1f : 1f;
+                transform.localScale = new Vector3(scaleX, 1f, 1f);
             }
             if (Mouse.current.leftButton.isPressed)
                 TryShoot();
@@ -48,8 +48,9 @@ namespace Base.Player
 
         private void MoveOnCollider()
         {
-            var pos = MathUtil.ClampToArena(_rb.position, _direction, State.Speed, G.Arena.collider);
-            _rb.MovePosition(pos);
+            // var pos = MathUtil.ClampToArena(_rb.position, _direction, State.Speed, G.Arena.collider);
+            Vector2 targetPosition = _rb.position + _direction * (State.Speed * Time.fixedDeltaTime);
+            _rb.MovePosition(targetPosition);
         }
 
         public void TakeDamage(int damage)
