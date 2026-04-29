@@ -8,7 +8,7 @@ public class Bootstrap
     private static void OnBeforeSceneLoad()
     {
         if (_initialized) return;
-        Debug.Log("Bootstrapper: Initialization started");
+        _initialized = true;
 
         CMS.Unload();
         CMS.Init();

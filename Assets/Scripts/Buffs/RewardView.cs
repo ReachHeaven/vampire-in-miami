@@ -37,7 +37,6 @@ namespace Buffs
             buff.Execute();
             Time.timeScale = 1f;
             gameObject.SetActive(false);
-            Debug.Log(G.Player.State);
         }
     }
 }

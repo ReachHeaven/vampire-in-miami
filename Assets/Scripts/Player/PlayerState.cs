@@ -26,8 +26,9 @@ namespace Player
             MaxHealth = stats.MaxHealth;
             Health = MaxHealth;
             Speed = stats.Speed;
-            MaxLevel = model.Get<TagExperience>().MaxLevel;
-            ExperienceToNextLevel = model.Get<TagExperience>().ExperienceToNextLevel;
+            var xp = model.Get<TagExperience>();
+            MaxLevel = xp.MaxLevel;
+            ExperienceToNextLevel = xp.ExperienceToNextLevel;
 
             if (model.Is<TagEquippedWeapon>(out var equipped) && equipped.WeaponPfb)
                 Weapon = new WeaponState(equipped.WeaponPfb.AsEntity());

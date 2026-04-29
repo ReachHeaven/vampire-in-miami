@@ -1,4 +1,3 @@
-using System;
 using Base;
 using Base.Player;
 using DG.Tweening;
@@ -43,18 +42,16 @@ public class EnemyView : ViewBase
 
     public void TakeDamage(int damage)
     {
-        Debug.Log($"Enemy get {damage} damage, health: {State.Health}. Zombie isDead : {State.IsDead}");
+        if (State.IsDead) return;
         State.ApplyDamage(damage);
+        if (!State.IsDead) return;
 
-        if (State.IsDead)
-        {
-            G.Waves.NotifyKilled(this);
-            bool leveled = G.Player.State.TryGetLevel(State.ExperienceGained);
-            G.Hud.SetExperience(G.Player.State.Experience, G.Player.State.ExperienceToNextLevel);
-            G.Hud.SetLevel(G.Player.State.Level);
-            if (leveled) G.GameMain.OnLevelUp();
-            Destroy(gameObject);
-        }
+        G.Waves.NotifyKilled(this);
+        bool leveled = G.Player.State.TryGetLevel(State.ExperienceGained);
+        G.Hud.SetExperience(G.Player.State.Experience, G.Player.State.ExperienceToNextLevel);
+        G.Hud.SetLevel(G.Player.State.Level);
+        if (leveled) G.GameMain.OnLevelUp();
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
@@ -8,7 +7,6 @@ public class WaveRunner : MonoBehaviour
 {
     private Camera _camera;
     private bool _isSpawning;
-    private int _aliveCount;
     private readonly List<EnemyView> _aliveEnemies = new();
 
     private void Awake()
@@ -27,9 +25,8 @@ public class WaveRunner : MonoBehaviour
 
         foreach (var wave in tag.Waves.OrderBy(w => w.Order))
         {
-            Debug.Log($"Run wave {wave.Order}");
             await RunWave(wave);
-            await UniTask.WaitUntil(() => !_isSpawning && _aliveCount == 0);
+            await UniTask.WaitUntil(() => !_isSpawning && _aliveEnemies.Count == 0);
             await UniTask.Delay(2000);
         }
 
@@ -39,22 +36,20 @@ public class WaveRunner : MonoBehaviour
     public void NotifyKilled(EnemyView enemy)
     {
         _aliveEnemies.Remove(enemy);
-        _aliveCount--;
-        Debug.Log($"NotifyKilled, aliveCount {_aliveCount}");
     }
 
     public EnemyView FindNearest(Vector2 origin, float radius)
     {
         EnemyView nearest = null;
-        float minDist = radius;
+        float minSqr = radius * radius;
 
         foreach (var enemy in _aliveEnemies)
         {
             if (!enemy) continue;
-            float dist = Vector2.Distance(origin, enemy.transform.position);
-            if (dist < minDist)
+            float sqr = ((Vector2)enemy.transform.position - origin).sqrMagnitude;
+            if (sqr < minSqr)
             {
-                minDist = dist;
+                minSqr = sqr;
                 nearest = enemy;
             }
         }
@@ -75,12 +70,16 @@ public class WaveRunner : MonoBehaviour
                 spawnPool.Add((entry.EnemyPfb.AsEntity(), entry.SpawnInterval));
         }
 
-        var shuffledPool = spawnPool.OrderBy(x => UnityEngine.Random.value).ToList();
+        // Fisher-Yates shuffle (uniform; OrderBy(Random.value) is biased)
+        for (int i = spawnPool.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            (spawnPool[i], spawnPool[j]) = (spawnPool[j], spawnPool[i]);
+        }
 
-        foreach (var spawnData in shuffledPool)
+        foreach (var spawnData in spawnPool)
         {
             SpawnEnemy(spawnData.model);
-            _aliveCount++;
             await UniTask.Delay(spawnData.interval);
         }
 
@@ -102,6 +101,5 @@ public class WaveRunner : MonoBehaviour
                 Destroy(e.gameObject);
 
         _aliveEnemies.Clear();
-        _aliveCount = 0;
     }
 }

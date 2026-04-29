@@ -1,11 +1,12 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraDirection : MonoBehaviour
 {
     private void Update()
     {
-        var playerPosition = G.Player.transform.position;
-        gameObject.transform.position = new Vector3(playerPosition.x, playerPosition.y, transform.position.z);
+        if (G.Player == null) return;
+        var p = G.Player.transform.position;
+        var t = transform.position;
+        transform.position = new Vector3(p.x, p.y, t.z);
     }
 }

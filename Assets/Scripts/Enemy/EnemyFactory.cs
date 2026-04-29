@@ -1,9 +1,10 @@
 using Base;
+using Constants;
 using UnityEngine;
 
 public class EnemyFactory : ViewFactoryBase<EnemyView>
 {
-    protected override string PrefabPath => "CMS/View/EnemyView";
+    protected override string PrefabPath => Models.EnemyView;
 
     public EnemyView Create(CMSEntity model)
     {

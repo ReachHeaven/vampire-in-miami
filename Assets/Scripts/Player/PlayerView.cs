@@ -10,11 +10,18 @@ namespace Base.Player
     public class PlayerView : ViewBase
     {
         public PlayerState State;
+        // Optional child transform that holds only the visual (SpriteRenderer).
+        // Scaling/flipping happens here so the collider on the root is not affected
+        // — otherwise the bounce stretches the collider into walls and shakes the player.
+        [SerializeField] private Transform _visual;
         private Vector2 _direction;
         private Rigidbody2D _rb;
         private Camera _camera;
         [FormerlySerializedAs("_playerAnimation")] public PlayerAnimation PlayerAnimation;
         private float _lastShotTime;
+        private Vector2 _lastFixedPos;
+
+        private Transform Visual => _visual != null ? _visual : transform;
 
         private void Awake()
         {
@@ -32,13 +39,17 @@ namespace Base.Player
         private void Update()
         {
             UpdateDirection();
-            // PlayerAnimation.SetMoving(_direction.magnitude > 0.01f);
             if (_direction.x != 0)
             {
                 float scaleX = _direction.x < 0 ? -1f : 1f;
-                transform.localScale = new Vector3(scaleX, 1f, 1f);
+                var v = Visual;
+                var s = v.localScale;
+                s.x = scaleX;
+                v.localScale = s;
             }
-            if (Mouse.current.leftButton.isPressed)
+
+            var mouse = Mouse.current;
+            if (mouse != null && mouse.leftButton.isPressed)
                 TryShoot();
         }
 
@@ -49,12 +60,16 @@ namespace Base.Player
 
         private void MoveOnCollider()
         {
+            Vector2 actualDelta = _rb.position - _lastFixedPos;
+            bool actuallyMoved = actualDelta.sqrMagnitude > 0.0001f;
+            _lastFixedPos = _rb.position;
+
             Vector2 targetPosition = _rb.position + _direction * (State.Speed * Time.fixedDeltaTime);
             _rb.MovePosition(targetPosition);
 
-            if (_direction.sqrMagnitude > 0.01f && !DOTween.IsTweening(transform))
+            if (actuallyMoved && _direction.sqrMagnitude > 0.01f && !DOTween.IsTweening(Visual))
             {
-                transform.DOScaleY(1.2f, 0.2f).SetLoops(2, LoopType.Yoyo);
+                Visual.DOScaleY(1.2f, 0.2f).SetLoops(2, LoopType.Yoyo);
             }
         }
 
@@ -64,7 +79,10 @@ namespace Base.Player
             G.Hud.SetHealth(State.MaxHealth, State.Health);
 
             if (State.IsDead)
+            {
+                G.Player = null;
                 Destroy(gameObject);
+            }
         }
 
         private void TryShoot()
@@ -76,9 +94,17 @@ namespace Base.Player
 
             Vector2 shooterPos = transform.position;
             var nearest = G.Waves.FindNearest(shooterPos, w.Range);
-            Vector2 targetPos = nearest != null
-                ? (Vector2)nearest.transform.position
-                : (Vector2)_camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            Vector2 targetPos;
+            if (nearest != null)
+            {
+                targetPos = nearest.transform.position;
+            }
+            else
+            {
+                var mouse = Mouse.current;
+                if (mouse == null) return;
+                targetPos = _camera.ScreenToWorldPoint(mouse.position.ReadValue());
+            }
             Vector2 direction = (targetPos - shooterPos).normalized;
 
             Bullet.Spawn(w.BulletPfb, shooterPos, direction, w.Damage, w.BulletSpeed);
@@ -86,8 +112,9 @@ namespace Base.Player
 
         private void UpdateDirection()
         {
-            Keyboard kb = Keyboard.current;
             _direction = Vector2.zero;
+            Keyboard kb = Keyboard.current;
+            if (kb == null) return;
             if (kb.upArrowKey.isPressed || kb.wKey.isPressed) _direction += Vector2.up;
             if (kb.downArrowKey.isPressed || kb.sKey.isPressed) _direction += Vector2.down;
             if (kb.leftArrowKey.isPressed || kb.aKey.isPressed) _direction += Vector2.left;

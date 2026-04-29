@@ -35,7 +35,7 @@ public class GameMain : MonoBehaviour
     private void Update()
     {
         Keyboard kb = Keyboard.current;
-        if (kb.zKey.wasPressedThisFrame)
+        if (kb != null && kb.zKey.wasPressedThisFrame)
             G.Waves.KillAllEnemies();
     }
 
