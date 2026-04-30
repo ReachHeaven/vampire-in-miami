@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 
 public class GameMain : MonoBehaviour
 {
+    [SerializeField] private IntroView _intro;
     private RewardView _rewardView;
     private List<IAction> _allBuffs;
 
@@ -18,7 +19,7 @@ public class GameMain : MonoBehaviour
         _rewardView = FindFirstObjectByType<RewardView>(FindObjectsInactive.Include);
     }
 
-    private void Start()
+    private async void Start()
     {
         G.Hud.SetHealth(
             G.Player.State.MaxHealth,
@@ -29,6 +30,9 @@ public class GameMain : MonoBehaviour
             .ToList();
 
         _rewardView.gameObject.SetActive(false);
+
+        if (_intro != null) await _intro.Play();
+
         G.Waves.RunAll().Forget();
     }
 
