@@ -104,6 +104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0573a2845609472f803444dabfaba155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerAnimation
+  _sr: {fileID: 0}
+  _visual: {fileID: 0}
 --- !u!1 &3317167544882334808
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,7 +258,7 @@ MonoBehaviour:
     - rid: 5479692575970426949
       type: {class: TagStats, ns: , asm: Assembly-CSharp}
       data:
-        MaxHealth: 10000
+        MaxHealth: 100
         Speed: 10
     - rid: 5479692575970426950
       type: {class: TagExperience, ns: , asm: Assembly-CSharp}

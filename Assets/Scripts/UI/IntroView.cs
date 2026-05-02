@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
@@ -23,11 +24,12 @@ namespace UI
             if (_root != null) _root.gameObject.SetActive(false);
         }
 
-        public async UniTask Play()
+        public async UniTask Play(bool chainNext = false, Action onBeforeFade = null)
         {
             if (_skip || _root == null || _label == null || _lines == null || _lines.Length == 0)
             {
                 if (_root != null) _root.gameObject.SetActive(false);
+                onBeforeFade?.Invoke();
                 return;
             }
 
@@ -43,12 +45,17 @@ namespace UI
                 await WriteLine(_lines[i], withFade: !isLast);
             }
 
+            onBeforeFade?.Invoke();
+
             await _root.DOFade(0f, _rootFade).SetEase(Ease.OutSine)
                 .SetUpdate(true).AsyncWaitForCompletion();
             _root.gameObject.SetActive(false);
 
-            Time.timeScale = 1f;
-            SetHidden(false);
+            if (!chainNext)
+            {
+                Time.timeScale = 1f;
+                SetHidden(false);
+            }
         }
 
         private void SetHidden(bool hidden)

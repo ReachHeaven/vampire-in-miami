@@ -9,6 +9,7 @@ public static class G
     public static Arena Arena;
     public static HudView Hud;
     public static WaveRunner Waves;
+    public static string PlayerName;
 
     public static readonly EnemyFactory EnemyFactory = new();
 }

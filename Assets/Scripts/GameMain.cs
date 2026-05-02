@@ -8,7 +8,9 @@ using UnityEngine.InputSystem;
 
 public class GameMain : MonoBehaviour
 {
+    [SerializeField] private MenuView _menu;
     [SerializeField] private IntroView _intro;
+    [SerializeField] private DialogView _openingDialog;
     private RewardView _rewardView;
     private List<IAction> _allBuffs;
 
@@ -31,7 +33,14 @@ public class GameMain : MonoBehaviour
 
         _rewardView.gameObject.SetActive(false);
 
-        if (_intro != null) await _intro.Play();
+        bool hasMenu = _menu != null;
+        bool hasDialog = _openingDialog != null;
+        if (_intro != null)
+            await _intro.Play(
+                chainNext: hasMenu || hasDialog,
+                onBeforeFade: hasMenu ? (System.Action)(() => _menu.Show()) : null);
+        if (hasMenu) await _menu.Play(chainNext: hasDialog);
+        if (hasDialog) await _openingDialog.Play();
 
         G.Waves.RunAll().Forget();
     }

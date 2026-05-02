@@ -12,5 +12,7 @@ public class Bootstrap
 
         CMS.Unload();
         CMS.Init();
+
+        G.PlayerName = PlayerPrefs.GetString("PlayerName", string.Empty);
     }
 }
