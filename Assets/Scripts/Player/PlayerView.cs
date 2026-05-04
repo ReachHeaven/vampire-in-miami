@@ -10,14 +10,14 @@ namespace Base.Player
     public class PlayerView : ViewBase
     {
         public PlayerState State;
-        // Optional child transform that holds only the visual (SpriteRenderer).
-        // Scaling/flipping happens here so the collider on the root is not affected
-        // — otherwise the bounce stretches the collider into walls and shakes the player.
         [SerializeField] private Transform _visual;
         private Vector2 _direction;
         private Rigidbody2D _rb;
         private Camera _camera;
-        [FormerlySerializedAs("_playerAnimation")] public PlayerAnimation PlayerAnimation;
+
+        [FormerlySerializedAs("_playerAnimation")]
+        public PlayerAnimation PlayerAnimation;
+
         private float _lastShotTime;
         private Vector2 _lastFixedPos;
 
@@ -105,8 +105,10 @@ namespace Base.Player
                 if (mouse == null) return;
                 targetPos = _camera.ScreenToWorldPoint(mouse.position.ReadValue());
             }
+
             Vector2 direction = (targetPos - shooterPos).normalized;
 
+            _visual.DOShakePosition(0.1f, strength: 0.5f, vibrato: 0);
             Bullet.Spawn(w.BulletPfb, shooterPos, direction, w.Damage, w.BulletSpeed);
         }
 

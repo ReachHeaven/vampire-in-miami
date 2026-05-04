@@ -1153,6 +1153,10 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0.39215687
       objectReference: {fileID: 0}
+    - target: {fileID: 8151645371524283510, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 3833281713391711370, guid: 433a8a59bd5494f46bee9b1dd8176461, type: 3}
@@ -1437,7 +1441,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 776, y: 400}
+  m_AnchoredPosition: {x: 776, y: 441}
   m_SizeDelta: {x: 471.0018, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &599907708
@@ -168352,7 +168356,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &896187666
 RectTransform:
@@ -169824,7 +169828,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 776, y: 178}
+  m_AnchoredPosition: {x: 776, y: 326}
   m_SizeDelta: {x: 471.0018, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1881867709
@@ -170236,7 +170240,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 776, y: 285}
+  m_AnchoredPosition: {x: 776, y: 388}
   m_SizeDelta: {x: 471.0018, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2101659936

@@ -30,7 +30,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6757505175882268032}
   m_Father: {fileID: 3161302274115697981}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6237536224158375735
@@ -133,10 +134,10 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.6937548, w: 0.7202113}
   m_LocalPosition: {x: 0.028, y: -0.394, z: 0}
-  m_LocalScale: {x: 0.3, y: 1, z: 1}
+  m_LocalScale: {x: 0.30000004, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3161302274115697981}
+  m_Father: {fileID: 6739192929885887432}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -87.856}
 --- !u!212 &8151645371524283510
 SpriteRenderer:
@@ -230,7 +231,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6757505175882268032}
   - {fileID: 6739192929885887432}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
