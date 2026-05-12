@@ -12,13 +12,16 @@ public class GameMain : MonoBehaviour
     [SerializeField] private IntroView _intro;
     [SerializeField] private DialogView _openingDialog;
     private RewardView _rewardView;
+    private EndScreenView _endScreen;
     private List<IAction> _allBuffs;
+    private bool _ended;
 
     private void Awake()
     {
         G.GameMain = this;
         G.Hud = FindFirstObjectByType<HudView>();
         _rewardView = FindFirstObjectByType<RewardView>(FindObjectsInactive.Include);
+        _endScreen = FindFirstObjectByType<EndScreenView>(FindObjectsInactive.Include);
     }
 
     private async void Start()
@@ -60,7 +63,19 @@ public class GameMain : MonoBehaviour
 
     public void OnAllWavesCleared()
     {
-        G.Hud.SetMessage("All waves cleared");
         Debug.Log("[GameMain] All waves cleared!");
+        ShowEnd(victory: true);
+    }
+
+    public void OnPlayerDied()
+    {
+        ShowEnd(victory: false);
+    }
+
+    private void ShowEnd(bool victory)
+    {
+        if (_ended || _endScreen == null) return;
+        _ended = true;
+        _endScreen.Show(victory).Forget();
     }
 }

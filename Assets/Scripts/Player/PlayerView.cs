@@ -81,6 +81,7 @@ namespace Base.Player
             if (State.IsDead)
             {
                 G.Player = null;
+                G.GameMain.OnPlayerDied();
                 Destroy(gameObject);
             }
         }
