@@ -58,59 +58,86 @@ public class EnemyView : ViewBase
         Destroy(gameObject);
     }
 
+    private static Sprite _pixelSprite;
+
+    private static Sprite PixelSprite
+    {
+        get
+        {
+            if (_pixelSprite != null) return _pixelSprite;
+            var tex = new Texture2D(1, 1, TextureFormat.RGBA32, false)
+            {
+                filterMode = FilterMode.Point,
+                wrapMode = TextureWrapMode.Clamp,
+            };
+            tex.SetPixel(0, 0, Color.white);
+            tex.Apply();
+            _pixelSprite = Sprite.Create(tex, new Rect(0, 0, 1, 1), new Vector2(0.5f, 0.5f), 1f);
+            return _pixelSprite;
+        }
+    }
+
     private void PlayExplosion()
     {
         Vector3 deathPos = transform.position;
-        Sprite sprite = _sr != null ? _sr.sprite : null;
-        Vector3 baseScale = transform.localScale;
         int sortingLayer = _sr != null ? _sr.sortingLayerID : 0;
         int sortingOrder = _sr != null ? _sr.sortingOrder : 0;
 
-        SpawnFlash(deathPos, sprite, baseScale, sortingLayer, sortingOrder);
-        SpawnShards(deathPos, sprite, baseScale, sortingLayer, sortingOrder);
+        SpawnSpot(deathPos, sortingLayer);
+        SpawnPixels(deathPos, sortingLayer, sortingOrder);
     }
 
-    private static void SpawnFlash(Vector3 pos, Sprite sprite, Vector3 baseScale, int layer, int order)
+    private static void SpawnPixels(Vector3 pos, int layer, int order)
     {
-        if (sprite == null) return;
-        var ghost = new GameObject("EnemyExplosionFlash");
-        ghost.transform.position = pos;
-        ghost.transform.localScale = baseScale;
-        var sr = ghost.AddComponent<SpriteRenderer>();
-        sr.sprite = sprite;
-        sr.color = Color.white;
-        sr.sortingLayerID = layer;
-        sr.sortingOrder = order + 1;
-
-        ghost.transform.DOScale(baseScale * 2.5f, 0.35f).SetEase(Ease.OutQuad);
-        sr.DOFade(0f, 0.35f).SetEase(Ease.OutQuad)
-            .OnComplete(() => Destroy(ghost));
-    }
-
-    private static void SpawnShards(Vector3 pos, Sprite sprite, Vector3 baseScale, int layer, int order)
-    {
-        if (sprite == null) return;
-        const int count = 6;
+        const int count = 14;
         for (int i = 0; i < count; i++)
         {
-            var shard = new GameObject("EnemyShard");
+            var shard = new GameObject("EnemyPixel");
             shard.transform.position = pos;
-            shard.transform.localScale = baseScale * 0.35f;
+            float pixelScale = Random.Range(0.05f, 0.09f);
+            shard.transform.localScale = new Vector3(pixelScale, pixelScale, 1f);
+
             var ssr = shard.AddComponent<SpriteRenderer>();
-            ssr.sprite = sprite;
-            ssr.color = new Color(1f, 0.85f, 0.6f, 1f);
+            ssr.sprite = PixelSprite;
+            float r = Random.Range(0.35f, 0.55f);
+            float g = Random.Range(0.0f, 0.05f);
+            float b = Random.Range(0.0f, 0.05f);
+            ssr.color = new Color(r, g, b, 1f);
             ssr.sortingLayerID = layer;
-            ssr.sortingOrder = order;
+            ssr.sortingOrder = order + 1;
 
-            float angle = i * Mathf.PI * 2f / count + Random.Range(-0.3f, 0.3f);
+            float angle = i * Mathf.PI * 2f / count + Random.Range(-0.4f, 0.4f);
             Vector2 dir = new(Mathf.Cos(angle), Mathf.Sin(angle));
-            float dist = Random.Range(0.7f, 1.3f);
-            float duration = Random.Range(0.35f, 0.55f);
+            float dist = Random.Range(0.6f, 1.4f);
+            float duration = Random.Range(0.35f, 0.6f);
 
-            shard.transform.DOMove(pos + (Vector3)(dir * dist), duration).SetEase(Ease.OutCubic);
-            shard.transform.DORotate(new Vector3(0, 0, Random.Range(-540f, 540f)), duration);
-            ssr.DOFade(0f, duration).SetEase(Ease.InQuad)
-                .OnComplete(() => Destroy(shard));
+            var capturedShard = shard;
+            shard.transform.DOMove(pos + (Vector3)(dir * dist), duration)
+                .SetEase(Ease.OutCubic)
+                .OnComplete(() => Destroy(capturedShard));
+        }
+    }
+
+    private static void SpawnSpot(Vector3 pos, int layer)
+    {
+        const int clusterCount = 20;
+        const float clusterRadius = 0.25f;
+        for (int i = 0; i < clusterCount; i++)
+        {
+            float r = Mathf.Sqrt(Random.value) * clusterRadius;
+            float a = Random.value * Mathf.PI * 2f;
+            Vector3 offset = new(Mathf.Cos(a) * r, Mathf.Sin(a) * r, 0f);
+
+            var dot = new GameObject("BloodDot");
+            dot.transform.position = pos + offset;
+            float scale = Random.Range(0.05f, 0.09f);
+            dot.transform.localScale = new Vector3(scale, scale, 1f);
+
+            var sr = dot.AddComponent<SpriteRenderer>();
+            sr.sprite = PixelSprite;
+            sr.color = new Color(Random.Range(0.25f, 0.45f), Random.Range(0.0f, 0.04f), Random.Range(0.0f, 0.04f), 1f);
+            sr.sortingLayerID = layer;
+            sr.sortingOrder = 0;
         }
     }
 
