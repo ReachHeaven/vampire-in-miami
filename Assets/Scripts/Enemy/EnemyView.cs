@@ -10,6 +10,7 @@ public class EnemyView : ViewBase
     private Transform _target;
     private Rigidbody2D _rb;
     private SpriteRenderer _sr;
+    private float _moveTime;
 
     private void Awake()
     {
@@ -17,6 +18,7 @@ public class EnemyView : ViewBase
             .SetLoops(-1, LoopType.Yoyo).SetLink(gameObject);
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
+        _moveTime = Random.value * 10f;
     }
 
     public void Init(EnemyState state)
@@ -36,8 +38,42 @@ public class EnemyView : ViewBase
     private void FixedUpdate()
     {
         if (!_target) return;
-        Vector2 direction = (_target.position - transform.position).normalized;
-        _rb.MovePosition(_rb.position + direction * (State.Speed * Time.fixedDeltaTime));
+        _moveTime += Time.fixedDeltaTime;
+
+        Vector2 toTarget = (Vector2)_target.position - _rb.position;
+        Vector2 forward = toTarget.sqrMagnitude > 1e-6f ? toTarget.normalized : Vector2.zero;
+        Vector2 dir = forward;
+        float speedMul = 1f;
+
+        var m = State.Movement;
+        if (m != null)
+        {
+            switch (m.Kind)
+            {
+                case MovementKind.Zigzag:
+                {
+                    Vector2 perp = new(-forward.y, forward.x);
+                    float lateral = Mathf.Sin(_moveTime * m.ZigzagFrequency) * m.ZigzagAmplitude;
+                    Vector2 mixed = forward + perp * lateral;
+                    if (mixed.sqrMagnitude > 1e-6f) dir = mixed.normalized;
+                    break;
+                }
+                case MovementKind.Dash:
+                {
+                    float cycle = m.DashCooldownSeconds + m.DashWindupSeconds + m.DashChargeSeconds;
+                    if (cycle > 0f)
+                    {
+                        float t = _moveTime % cycle;
+                        if (t < m.DashCooldownSeconds) speedMul = m.DashIdleSpeedMul;
+                        else if (t < m.DashCooldownSeconds + m.DashWindupSeconds) speedMul = 0f;
+                        else speedMul = m.DashChargeSpeedMul;
+                    }
+                    break;
+                }
+            }
+        }
+
+        _rb.MovePosition(_rb.position + dir * (State.Speed * speedMul * Time.fixedDeltaTime));
     }
 
     public void TakeDamage(int damage)

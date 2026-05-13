@@ -114,6 +114,7 @@ MonoBehaviour:
   - rid: 5479692575970426951
   - rid: 5479692509020422486
   - rid: 5479692575970426969
+  - rid: 6676228292659904584
   references:
     version: 2
     RefIds:
@@ -121,7 +122,7 @@ MonoBehaviour:
       type: {class: TagStats, ns: , asm: Assembly-CSharp}
       data:
         MaxHealth: 100
-        Speed: 1
+        Speed: 5
     - rid: 5479692509020422416
       type: {class: TagCMSEntity, ns: Runtime, asm: CMS}
       data:
@@ -138,6 +139,17 @@ MonoBehaviour:
       type: {class: TagSprite, ns: Runtime, asm: CMS}
       data:
         sprite: {fileID: -5782521184205631276, guid: 8692d28c5c607bf4fa736afb487d5494, type: 3}
+    - rid: 6676228292659904584
+      type: {class: TagMovement, ns: , asm: Assembly-CSharp}
+      data:
+        Kind: 1
+        ZigzagAmplitude: 10
+        ZigzagFrequency: 5
+        DashIdleSpeedMul: 0.25
+        DashWindupSeconds: 0.35
+        DashChargeSpeedMul: 3.5
+        DashChargeSeconds: 0.5
+        DashCooldownSeconds: 1.2
 --- !u!50 &7794998863780285008
 Rigidbody2D:
   serializedVersion: 5

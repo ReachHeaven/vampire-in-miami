@@ -7,6 +7,7 @@ public class EnemyState : ObjectState
     public float Speed;
     public int ContactDamage;
     public int ExperienceGained;
+    public TagMovement Movement;
     public bool IsDead => Health <= 0;
 
     public EnemyState(CMSEntity model)
@@ -17,6 +18,7 @@ public class EnemyState : ObjectState
         Speed = stats.Speed;
         ContactDamage = model.Is<TagContactDamage>(out var d) ? d.Damage : 0;
         ExperienceGained = model.Is<TagExperienceDrop>(out var drop) ? drop.Amount : 0;
+        Movement = model.Is<TagMovement>(out var m) ? m : null;
     }
 
     public void ApplyDamage(int dmg) =>
