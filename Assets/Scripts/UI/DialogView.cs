@@ -15,18 +15,14 @@ namespace UI
         public bool AskNameAfter;
     }
 
-    public class DialogView : MonoBehaviour
+    public class DialogView : ModalViewBase
     {
         private const string PlayerNameKey = "PlayerName";
 
-        [SerializeField] private bool _skip;
-        [SerializeField] private CanvasGroup _root;
         [SerializeField] private TextMeshProUGUI _label;
         [SerializeField] private DialogLine[] _lines;
         [SerializeField] private float _secondsPerChar = 0.04f;
         [SerializeField] private float _minTypeDuration = 0.3f;
-        [SerializeField] private float _rootFade = 0.4f;
-        [SerializeField] private GameObject[] _hideWhilePlaying;
 
         [Header("Head")]
         [SerializeField] private RectTransform _headRect;
@@ -47,9 +43,9 @@ namespace UI
 
         private Tween _headTween;
 
-        private void Awake()
+        protected override void Awake()
         {
-            if (_root != null) _root.gameObject.SetActive(false);
+            base.Awake();
             if (_nameRoot != null) _nameRoot.SetActive(false);
         }
 
@@ -61,11 +57,7 @@ namespace UI
                 return;
             }
 
-            SetHidden(true);
-            Time.timeScale = 0f;
-
-            _root.gameObject.SetActive(true);
-            _root.alpha = 1f;
+            ShowRoot();
 
             foreach (var line in _lines)
             {
@@ -73,12 +65,8 @@ namespace UI
                 if (line.AskNameAfter) await AskName();
             }
 
-            await _root.DOFade(0f, _rootFade).SetEase(Ease.OutSine)
-                .SetUpdate(true).AsyncWaitForCompletion();
-            _root.gameObject.SetActive(false);
-
-            Time.timeScale = 1f;
-            SetHidden(false);
+            await FadeRoot(0f);
+            FinishHide(chainNext: false);
         }
 
         private string ResolvePlaceholders(string text)
@@ -101,7 +89,7 @@ namespace UI
             int shown = 0;
             while (shown < text.Length)
             {
-                if (Pressed())
+                if (AnyKeyPressed())
                 {
                     _label.text = text;
                     break;
@@ -120,7 +108,7 @@ namespace UI
             StopHeadBob();
             await UniTask.NextFrame();
 
-            await UniTask.WaitUntil(Pressed);
+            await UniTask.WaitUntil(AnyKeyPressed);
             await UniTask.NextFrame();
         }
 
@@ -182,22 +170,6 @@ namespace UI
 
             _nameRoot.SetActive(false);
             await UniTask.NextFrame();
-        }
-
-        private static bool Pressed()
-        {
-            var mouse = Mouse.current;
-            if (mouse != null && mouse.leftButton.wasPressedThisFrame) return true;
-            var kb = Keyboard.current;
-            if (kb != null && (kb.spaceKey.wasPressedThisFrame || kb.enterKey.wasPressedThisFrame)) return true;
-            return false;
-        }
-
-        private void SetHidden(bool hidden)
-        {
-            if (_hideWhilePlaying == null) return;
-            foreach (var go in _hideWhilePlaying)
-                if (go != null) go.SetActive(!hidden);
         }
     }
 }

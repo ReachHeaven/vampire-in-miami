@@ -3,26 +3,18 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace UI
 {
-    public class IntroView : MonoBehaviour
+    public class IntroView : ModalViewBase
     {
-        [SerializeField] private bool _skip;
-        [SerializeField] private CanvasGroup _root;
         [SerializeField] private TextMeshProUGUI _label;
         [SerializeField] private string[] _lines;
         [SerializeField] private float _typeStep = 0.135f;
         [SerializeField] private int _typeTicksPerLine = 4;
         [SerializeField] private float _holdAfterType = 1.5f;
-        [SerializeField] private float _lineFade = 0.7f;
-        [SerializeField] private float _rootFade = 0.4f;
-        [SerializeField] private GameObject[] _hideWhilePlaying;
-
-        private void Awake()
-        {
-            if (_root != null) _root.gameObject.SetActive(false);
-        }
+        [SerializeField, FormerlySerializedAs("_lineFade")] private float _lineFadeDuration = 0.7f;
 
         public async UniTask Play(bool chainNext = false, Action onBeforeFade = null)
         {
@@ -33,11 +25,7 @@ namespace UI
                 return;
             }
 
-            SetHidden(true);
-            Time.timeScale = 0f;
-
-            _root.gameObject.SetActive(true);
-            _root.alpha = 1f;
+            ShowRoot();
 
             for (int i = 0; i < _lines.Length; i++)
             {
@@ -47,22 +35,8 @@ namespace UI
 
             onBeforeFade?.Invoke();
 
-            await _root.DOFade(0f, _rootFade).SetEase(Ease.OutSine)
-                .SetUpdate(true).AsyncWaitForCompletion();
-            _root.gameObject.SetActive(false);
-
-            if (!chainNext)
-            {
-                Time.timeScale = 1f;
-                SetHidden(false);
-            }
-        }
-
-        private void SetHidden(bool hidden)
-        {
-            if (_hideWhilePlaying == null) return;
-            foreach (var go in _hideWhilePlaying)
-                if (go != null) go.SetActive(!hidden);
+            await FadeRoot(0f);
+            FinishHide(chainNext);
         }
 
         private async UniTask WriteLine(string text, bool withFade)
@@ -76,7 +50,7 @@ namespace UI
             await UniTask.WaitForSeconds(_holdAfterType, ignoreTimeScale: true);
 
             if (withFade)
-                await _label.DOFade(0f, _lineFade).SetEase(Ease.OutSine)
+                await _label.DOFade(0f, _lineFadeDuration).SetEase(Ease.OutSine)
                     .SetUpdate(true).AsyncWaitForCompletion();
         }
     }

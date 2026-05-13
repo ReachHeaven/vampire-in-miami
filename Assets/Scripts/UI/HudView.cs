@@ -1,30 +1,31 @@
-﻿using TMPro;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace UI
 {
     public class HudView : MonoBehaviour
     {
-        public TMP_Text Health;
-        public TMP_Text Message;
-        public TMP_Text Wave;
-        public TMP_Text Level;
-        public TMP_Text Experience;
+        [SerializeField, FormerlySerializedAs("Health")]     private TMP_Text _health;
+        [SerializeField, FormerlySerializedAs("Message")]    private TMP_Text _message;
+        [SerializeField, FormerlySerializedAs("Wave")]       private TMP_Text _wave;
+        [SerializeField, FormerlySerializedAs("Level")]      private TMP_Text _level;
+        [SerializeField, FormerlySerializedAs("Experience")] private TMP_Text _experience;
 
-        public void SetMessage(string msg) => Message.SetText(msg);
+        public void SetMessage(string msg) => _message.SetText(msg);
 
-        public void ClearMessage() => Message.SetText("");
+        public void ClearMessage() => _message.SetText("");
 
         public void SetHealth(int total, int current) =>
-            Health.text = $"Health: {current}/{total}";
+            _health.text = $"Health: {current}/{total}";
 
         public void SetLevel(int current) =>
-            Level.text = $"Level: {current}";
+            _level.text = $"Level: {current}";
 
         public void SetExperience(int current, int total) =>
-            Experience.text = $"Experience: {current}/{total}";
+            _experience.text = $"Experience: {current}/{total}";
 
         public void SetWave(string current, string total) =>
-            Wave.text = $"Wave: {current}/{total}";
+            _wave.text = $"Wave: {current}/{total}";
     }
 }

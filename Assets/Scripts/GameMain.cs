@@ -26,9 +26,8 @@ public class GameMain : MonoBehaviour
 
     private async void Start()
     {
-        G.Hud.SetHealth(
-            G.Player.State.MaxHealth,
-            G.Player.State.Health);
+        if (G.Player != null)
+            G.Hud.SetHealth(G.Player.State.MaxHealth, G.Player.State.Health);
 
         _allBuffs = CMS.GetAllData<TagBuffs>()
             .SelectMany(x => x.tag.Buffs)

@@ -1,16 +1,13 @@
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace UI
 {
-    public class EndScreenView : MonoBehaviour
+    public class EndScreenView : ModalViewBase
     {
-        [SerializeField] private CanvasGroup _root;
         [SerializeField] private Image _background;
         [SerializeField] private TextMeshProUGUI _title;
         [SerializeField] private TextMeshProUGUI _hint;
@@ -21,15 +18,9 @@ namespace UI
         [SerializeField] private Color _defeatColor = new(1f, 0.35f, 0.35f);
         [SerializeField] private Color _victoryBackground = new(0.05f, 0.1f, 0.15f, 0.85f);
         [SerializeField] private Color _defeatBackground = new(0.15f, 0.02f, 0.02f, 0.85f);
-        [SerializeField] private float _fadeIn = 0.5f;
         [SerializeField] private float _delayBeforeInput = 0.6f;
 
         private bool _shown;
-
-        private void Awake()
-        {
-            if (_root != null) _root.gameObject.SetActive(false);
-        }
 
         public async UniTask Show(bool victory)
         {
@@ -45,26 +36,14 @@ namespace UI
             if (_background != null)
                 _background.color = victory ? _victoryBackground : _defeatBackground;
 
-            Time.timeScale = 0f;
-            _root.gameObject.SetActive(true);
-            _root.alpha = 0f;
-            await _root.DOFade(1f, _fadeIn).SetEase(Ease.OutSine)
-                .SetUpdate(true).AsyncWaitForCompletion();
+            ShowRoot(alpha: 0f);
+            await FadeRoot(1f);
 
             await UniTask.WaitForSeconds(_delayBeforeInput, ignoreTimeScale: true);
-            await UniTask.WaitUntil(AnyKey);
+            await UniTask.WaitUntil(AnyKeyPressed);
 
             Time.timeScale = 1f;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-
-        private static bool AnyKey()
-        {
-            var kb = Keyboard.current;
-            if (kb != null && kb.anyKey.wasPressedThisFrame) return true;
-            var mouse = Mouse.current;
-            if (mouse != null && (mouse.leftButton.wasPressedThisFrame || mouse.rightButton.wasPressedThisFrame)) return true;
-            return false;
         }
     }
 }

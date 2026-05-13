@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class WaveRunner : MonoBehaviour
 {
+    [SerializeField] private Transform _wallsRoot;
+    [SerializeField] private int _waveDelayMs = 2000;
+
     private Camera _camera;
     private bool _isSpawning;
     private readonly List<EnemyView> _aliveEnemies = new();
@@ -20,7 +23,7 @@ public class WaveRunner : MonoBehaviour
 
     private void ComputeArenaBounds()
     {
-        var walls = GameObject.Find("walls");
+        var walls = _wallsRoot != null ? _wallsRoot.gameObject : GameObject.Find("walls");
         if (walls == null) return;
 
         var colliders = walls.GetComponentsInChildren<Collider2D>();
@@ -68,7 +71,7 @@ public class WaveRunner : MonoBehaviour
         {
             await RunWave(wave);
             await UniTask.WaitUntil(() => !_isSpawning && _aliveEnemies.Count == 0);
-            await UniTask.Delay(2000);
+            await UniTask.Delay(_waveDelayMs);
         }
 
         G.GameMain.OnAllWavesCleared();

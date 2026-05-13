@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    [SerializeField] private float _lifetime = 5f;
+
     private int _damage;
     private float _speed;
     private Vector2 _direction;
@@ -22,7 +24,7 @@ public class Bullet : MonoBehaviour
         _direction = direction;
         _damage = damage;
         _speed = speed;
-        Destroy(gameObject, 5f);
+        Destroy(gameObject, _lifetime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
